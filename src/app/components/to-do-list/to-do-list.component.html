@@ -1,11 +1,16 @@
 <div class="todolist__current-task">
   <ul>
-    <li><button>Удалить</button> Сходить в магазин</li>
-    <li><button>Удалить</button> Купить сосиски</li>
-    <li><button>Удалить</button> Оплатить интернет</li>
+    <li *ngFor="let item of toDoList" class="todolist__current-task_item">
+      <span>{{ item.text }}</span>
+      <button class="button button__delete" (click)="delTask(item.id)">Удалить</button>
+    </li>
   </ul>
 </div>
 <div class="todolist__new-task">
-  <input>
-  <button>Добавить задачу</button>
+  <ul>
+    <li class="todolist__new-task_item">
+      <input type="text" #task (input)="taskHandler(task.value)" />
+      <button class="button button__add" [disabled]="disabled" (click)="saveTask(task.value)">Добавить</button>
+    </li>
+  </ul>
 </div>

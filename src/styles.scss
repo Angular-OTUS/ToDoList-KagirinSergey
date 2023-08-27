@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+
+.button {
+  cursor: pointer;
+  color: white;
+  border: 0;
+  border-right: 12px;
+
+  &__add {
+    background-color: green;
+  }
+
+  &__delete {
+    background-color: red;
+  }
+
+  &[disabled] {
+    background-color: grey;
+    cursor: default;
+    opacity: 0.5;
+  }
+}
