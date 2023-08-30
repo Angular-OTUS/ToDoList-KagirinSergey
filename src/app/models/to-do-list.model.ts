@@ -1,4 +1,4 @@
-export interface IToDoList {
+export interface IToDoItem {
   id: number,
   text: string
 }

@@ -1,10 +1,7 @@
 <div class="todolist__current-task">
-  <ul>
-    <li *ngFor="let item of toDoList" class="todolist__current-task_item">
-      <span>{{ item.text }}</span>
-      <button class="button button__delete" (click)="delTask(item.id)">Удалить</button>
-    </li>
-  </ul>
+  <ng-container *ngFor="let toDoItem of toDoItems">
+    <app-to-do-list-item [item]="toDoItem" (delTask)="delItem($event)"></app-to-do-list-item>
+  </ng-container>
 </div>
 <div class="todolist__new-task">
   <ul>

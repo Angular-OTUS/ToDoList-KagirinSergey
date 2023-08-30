@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { IToDoList } from "../../models/to-do-list.model";
+import {Component, Input, OnInit } from '@angular/core';
+import { IToDoItem } from "../../models/to-do-list.model";
 
 @Component({
   selector: 'app-to-do-list',
@@ -10,7 +10,7 @@ import { IToDoList } from "../../models/to-do-list.model";
 export class ToDoListComponent implements OnInit {
   public task: string = "";
   public disabled = true;
-  public toDoList: IToDoList[] = [
+  public toDoItems: IToDoItem[] = [
     {
       id: 0,
       text: "Сходить в магазин"
@@ -32,20 +32,23 @@ export class ToDoListComponent implements OnInit {
   }
 
   private getLastId() {
-    const max = this.toDoList.reduce(function(prev, current) {
-      return +current.id > +prev.id ? current : prev;
-    });
-    return max.id;
+    if(this.toDoItems.length > 0) {
+      const max = this.toDoItems.reduce(function(prev, current, index) {
+        return +current.id > +prev.id ? current : prev;
+      });
+      return max.id;
+    }
+    return 0;
   }
 
-  public saveTask(text: string):void {
-    this.toDoList.push({ id: this.getLastId() + 1, text: text });
-    console.log(this.toDoList);
+  public saveTask(text: string): void {
+    this.toDoItems.push({ id: this.getLastId() + 1, text: text });
+    console.log(this.toDoItems);
   }
 
-  public delTask(id: number):void {
-    const itemDel = this.toDoList.findIndex(el => el.id === id)
-    this.toDoList.splice(itemDel, 1);
+  public delItem(id: number): void {
+    const itemDel = this.toDoItems.findIndex(el => el.id === id)
+    this.toDoItems.splice(itemDel, 1);
   }
 
   public taskHandler(task: string): void {
