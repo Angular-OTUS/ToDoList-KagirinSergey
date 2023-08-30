@@ -6,8 +6,10 @@
 <div class="todolist__new-task">
   <ul>
     <li class="todolist__new-task_item">
-      <input type="text" #task (input)="taskHandler(task.value)" />
-      <button class="button button__add" [disabled]="disabled" (click)="saveTask(task.value)">Добавить</button>
+      <input matInput type="text" #task (input)="taskHandler(task.value)" />
+      <button mat-stroked-button color="primary" [disabled]="disabled" (click)="saveTask(task.value)">
+        Добавить
+      </button>
     </li>
   </ul>
 </div>
