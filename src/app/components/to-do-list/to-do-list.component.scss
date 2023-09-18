@@ -1,9 +1,35 @@
 .todolist {
   &__current-task {
+    ul {
+      max-width: 600px;
+      margin: 0;
+      padding: 0px;
+      list-style: none;
+    }
 
+    li {
+      padding: 8px 0 0;
+      display: flex;
+      justify-content: space-between;
+
+      div {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    li + li {
+      margin-top: 8px;
+      border-top: 1px solid grey;
+    }
   }
 
   &__new-task {
-
+    max-width: 600px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid grey;
+    margin-top: 8px;
+    padding: 8px 0 0;
   }
 }
