@@ -1,16 +1,7 @@
 .todolist {
   &__current-task {
     max-width: 600px;
-
-    &_item {
-      display: flex;
-      justify-content: space-between;
-      padding: 12px 0;
-
-      &:not(:last-child) {
-        border-bottom: solid 1px grey;
-      }
-    }
+    margin-top: 24px;
   }
 
   &__new-task {

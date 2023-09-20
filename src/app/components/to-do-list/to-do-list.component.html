@@ -4,12 +4,10 @@
   </ng-container>
 </div>
 <div class="todolist__new-task">
-  <ul>
-    <li class="todolist__new-task_item">
-      <input matInput type="text" #task (input)="taskHandler(task.value)" />
-      <button mat-stroked-button color="primary" [disabled]="disabled" (click)="saveTask(task.value)">
-        Добавить
-      </button>
-    </li>
-  </ul>
+  <div class="todolist__new-task_item">
+    <input matInput type="text" #task (input)="taskHandler(task.value)" />
+    <button class="button button__add" [disabled]="disabled" (click)="saveTask(task.value)">
+      Добавить
+    </button>
+  </div>
 </div>
