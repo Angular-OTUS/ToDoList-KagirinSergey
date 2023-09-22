@@ -9,7 +9,6 @@ import { IToDoItem } from "../../models/to-do-list.model";
 
 export class ToDoListComponent implements OnInit {
   public task: string = "";
-  public disabled = true;
   public toDoItems: IToDoItem[] = [
     {
       id: 0,
@@ -25,10 +24,16 @@ export class ToDoListComponent implements OnInit {
     }
   ];
 
+  public isLoading: boolean = true;
+  public disabled: boolean = true;
   constructor() {
   }
 
   ngOnInit() {
+    setTimeout(
+      () => this.isLoading = false,
+      500
+    );
   }
 
   private getLastId() {
@@ -41,9 +46,10 @@ export class ToDoListComponent implements OnInit {
     return 0;
   }
 
-  public saveTask(text: string): void {
-    this.toDoItems.push({ id: this.getLastId() + 1, text: text });
-    console.log(this.toDoItems);
+  public taskHandler(task: string): void {
+    console.log(task.length);
+    this.disabled = task.length > 3 ?  false : true;
+    console.log(this.disabled);
   }
 
   public delItem(id: number): void {
@@ -51,8 +57,8 @@ export class ToDoListComponent implements OnInit {
     this.toDoItems.splice(itemDel, 1);
   }
 
-  public taskHandler(task: string): void {
-    console.log(task.length);
-    this.disabled = task.length > 3 ?  false : true;
+  public saveTask(text: string): void {
+    this.toDoItems.push({ id: this.getLastId() + 1, text: text });
+    console.log(this.toDoItems);
   }
 }

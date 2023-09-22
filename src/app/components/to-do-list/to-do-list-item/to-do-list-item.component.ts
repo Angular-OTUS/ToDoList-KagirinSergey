@@ -8,6 +8,7 @@ import { IToDoItem } from "../../../models/to-do-list.model";
 })
 export class ToDoListItemComponent {
   @Input() item!: IToDoItem;
+  public disabled: boolean = true;
   @Output() delTask: EventEmitter<any> = new EventEmitter<number>();
 
   public clickDel(id: number): void {

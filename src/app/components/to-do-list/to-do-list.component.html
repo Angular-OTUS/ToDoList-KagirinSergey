@@ -1,13 +1,27 @@
 <div class="todolist__current-task">
-  <ng-container *ngFor="let toDoItem of toDoItems">
-    <app-to-do-list-item [item]="toDoItem" (delTask)="delItem($event)"></app-to-do-list-item>
-  </ng-container>
+  <div *ngIf="isLoading; then thenBlock else elseBlock"></div>
+  <ng-template #thenBlock>
+    <div class="animation-bg" *ngIf="isLoading">
+      <img class="img-rotation" src="assets/img/preloader.png"/>
+    </div>
+  </ng-template>
+  <ng-template #elseBlock>
+    <ng-container *ngFor="let toDoItem of toDoItems">
+      <app-to-do-list-item [item]="toDoItem" (delTask)="delItem($event)"></app-to-do-list-item>
+    </ng-container>
+  </ng-template>
 </div>
 <div class="todolist__new-task">
   <div class="todolist__new-task_item">
     <input matInput type="text" #task (input)="taskHandler(task.value)" />
-    <button class="button button__add" [disabled]="disabled" (click)="saveTask(task.value)">
-      Добавить
-    </button>
+    <app-button-component
+      title="Добавить"
+      classButton="button__add"
+      [disabled]="disabled"
+      (click)="saveTask(task.value)"
+    ></app-button-component>
+<!--    <button class="button button__add" [disabled]="disabled" (click)="saveTask(task.value)">-->
+<!--      Добавить-->
+<!--    </button>-->
   </div>
 </div>

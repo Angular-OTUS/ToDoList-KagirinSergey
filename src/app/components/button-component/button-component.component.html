@@ -1,0 +1,11 @@
+<!--<button class="button" ngClass="classButton" [disabled]="disabled" (click)="saveTask(task.value)">-->
+<!--  {{ title }}-->
+<!--</button>-->
+
+<button
+  class="button {{ classButton }}"
+  [disabled]="disabled"
+  (click)="clickButton(action)"
+>
+  {{ title }}
+</button>

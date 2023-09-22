@@ -3,14 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 
+import { SharedModule } from "./shared.module";
 import { MaterialModule } from './material/material.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ToDoListComponent } from './components/to-do-list/to-do-list.component';
 import { ToDoListItemComponent } from './components/to-do-list/to-do-list-item/to-do-list-item.component';
-
-
 
 @NgModule({
   declarations: [
@@ -23,7 +22,8 @@ import { ToDoListItemComponent } from './components/to-do-list/to-do-list-item/t
     AppRoutingModule,
     CommonModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
