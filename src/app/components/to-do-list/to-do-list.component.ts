@@ -31,16 +31,6 @@ export class ToDoListComponent implements OnInit {
   ngOnInit() {
   }
 
-  private getLastId() {
-    if(this.toDoItems.length > 0) {
-      const max = this.toDoItems.reduce(function(prev, current, index) {
-        return +current.id > +prev.id ? current : prev;
-      });
-      return max.id;
-    }
-    return 0;
-  }
-
   public saveTask(text: string): void {
     this.toDoItems.push({ id: this.getLastId() + 1, text: text });
     console.log(this.toDoItems);
@@ -54,5 +44,15 @@ export class ToDoListComponent implements OnInit {
   public taskHandler(task: string): void {
     console.log(task.length);
     this.disabled = task.length > 3 ?  false : true;
+  }
+
+  private getLastId() {
+    if(this.toDoItems.length > 0) {
+      const max = this.toDoItems.reduce(function(prev, current, index) {
+        return +current.id > +prev.id ? current : prev;
+      });
+      return max.id;
+    }
+    return 0;
   }
 }
