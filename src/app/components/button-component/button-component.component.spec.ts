@@ -8,7 +8,7 @@ describe('ButtonComponentComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ButtonComponentComponent]
+      declarations: [ButtonComponentComponent],
     });
     fixture = TestBed.createComponent(ButtonComponentComponent);
     component = fixture.componentInstance;

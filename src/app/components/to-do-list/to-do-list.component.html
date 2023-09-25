@@ -2,12 +2,15 @@
   <div *ngIf="isLoading; then thenBlock else elseBlock"></div>
   <ng-template #thenBlock>
     <div class="animation-bg" *ngIf="isLoading">
-      <img class="img-rotation" src="assets/img/preloader.png"/>
+      <img class="img-rotation" src="assets/img/preloader.png" alt=""/>
     </div>
   </ng-template>
   <ng-template #elseBlock>
     <ng-container *ngFor="let toDoItem of toDoItems">
-      <app-to-do-list-item [item]="toDoItem" (delTask)="delItem($event)"></app-to-do-list-item>
+      <app-to-do-list-item
+        [item]="toDoItem"
+        (delTask)="delItem($event)"
+      ></app-to-do-list-item>
     </ng-container>
   </ng-template>
 </div>
@@ -20,8 +23,5 @@
       [disabled]="disabled"
       (click)="saveTask(task.value)"
     ></app-button-component>
-<!--    <button class="button button__add" [disabled]="disabled" (click)="saveTask(task.value)">-->
-<!--      Добавить-->
-<!--    </button>-->
   </div>
 </div>

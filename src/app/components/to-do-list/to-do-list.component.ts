@@ -1,44 +1,42 @@
-import {Component, Input, OnInit } from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 import { IToDoItem } from "../../models/to-do-list.model";
 
 @Component({
   selector: 'app-to-do-list',
   templateUrl: './to-do-list.component.html',
-  styleUrls: ['./to-do-list.component.scss']
+  styleUrls: ['./to-do-list.component.scss'],
 })
 
 export class ToDoListComponent implements OnInit {
-  public task: string = "";
+  public task = "";
   public toDoItems: IToDoItem[] = [
     {
       id: 0,
-      text: "Сходить в магазин"
+      text: "Сходить в магазин",
     },
     {
       id: 1,
-      text: "Помыть окно"
+      text: "Помыть окно",
     },
     {
       id: 2,
-      text: "Оплатить интернет"
-    }
+      text: "Оплатить интернет",
+    },
   ];
 
-  public isLoading: boolean = true;
-  public disabled: boolean = true;
-  constructor() {
-  }
+  public isLoading = true;
+  public disabled = true;
 
   ngOnInit() {
     setTimeout(
       () => this.isLoading = false,
-      500
+      500,
     );
   }
 
   private getLastId() {
     if(this.toDoItems.length > 0) {
-      const max = this.toDoItems.reduce(function(prev, current, index) {
+      const max = this.toDoItems.reduce(function(prev, current) {
         return +current.id > +prev.id ? current : prev;
       });
       return max.id;
@@ -47,9 +45,7 @@ export class ToDoListComponent implements OnInit {
   }
 
   public taskHandler(task: string): void {
-    console.log(task.length);
     this.disabled = task.length > 3 ?  false : true;
-    console.log(this.disabled);
   }
 
   public delItem(id: number): void {

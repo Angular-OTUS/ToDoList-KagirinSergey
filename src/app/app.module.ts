@@ -3,19 +3,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 
-import { SharedModule } from "./shared.module";
+import { SharedModule } from "./shared/shared.module";
 import { MaterialModule } from './material/material.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ToDoListComponent } from './components/to-do-list/to-do-list.component';
-import { ToDoListItemComponent } from './components/to-do-list/to-do-list-item/to-do-list-item.component';
+import { ToDoListItemComponent } from './components/to-do-list-item/to-do-list-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToDoListComponent,
-    ToDoListItemComponent
+    ToDoListItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -23,9 +23,9 @@ import { ToDoListItemComponent } from './components/to-do-list/to-do-list-item/t
     CommonModule,
     FormsModule,
     MaterialModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

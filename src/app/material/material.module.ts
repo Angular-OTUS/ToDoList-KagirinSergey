@@ -70,7 +70,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatSnackBarModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
 
   ],
   exports: [
@@ -89,11 +89,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatChipsModule,
     MatTooltipModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
   providers: [
     MatDatepickerModule,
-  ]
+  ],
 } )
 
 export class MaterialModule { }
