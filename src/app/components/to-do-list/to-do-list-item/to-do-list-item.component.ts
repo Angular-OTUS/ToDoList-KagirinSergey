@@ -10,11 +10,7 @@ export class ToDoListItemComponent {
   @Input() item!: IToDoItem;
   @Output() delTask: EventEmitter<any> = new EventEmitter<number>();
 
-  public clickDel(id: number): void {
+  public deleteTask(id: number): void {
     this.delTask.emit(id);
   }
-
-  constructor() {
-  }
-
 }

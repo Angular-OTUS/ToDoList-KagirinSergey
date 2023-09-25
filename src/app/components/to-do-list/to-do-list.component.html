@@ -1,13 +1,11 @@
-<div class="todolist__current-task">
+<div class="todo__container">
   <ng-container *ngFor="let toDoItem of toDoItems">
     <app-to-do-list-item [item]="toDoItem" (delTask)="delItem($event)"></app-to-do-list-item>
   </ng-container>
 </div>
-<div class="todolist__new-task">
-  <div class="todolist__new-task_item">
-    <input matInput type="text" #task (input)="taskHandler(task.value)" />
-    <button class="button button__add" [disabled]="disabled" (click)="saveTask(task.value)">
-      Добавить
-    </button>
-  </div>
+<div class="todo__new-task">
+  <input matInput type="text" #task (input)="taskHandler(task.value)" />
+  <button class="button button__add" [disabled]="disabled" (click)="saveTask(task.value)">
+    Добавить
+  </button>
 </div>
