@@ -28,4 +28,5 @@ import { ToDoListItemComponent } from './components/to-do-list-item/to-do-list-i
   providers: [],
   bootstrap: [AppComponent],
 })
+
 export class AppModule { }

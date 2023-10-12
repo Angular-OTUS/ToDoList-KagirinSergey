@@ -1,4 +1,5 @@
 export interface IToDoItem {
   id: number,
-  text: string
+  text: string,
+  description: string
 }

@@ -1,27 +1,35 @@
-<div class="todolist__current-task">
-  <div *ngIf="isLoading; then thenBlock else elseBlock"></div>
-  <ng-template #thenBlock>
-    <div class="animation-bg" *ngIf="isLoading">
-      <img class="img-rotation" src="assets/img/preloader.png" alt=""/>
+<div class="todo__wrapper">
+  <div>
+    <div class="todo__container">
+      <div *ngIf="isLoading; then thenBlock else elseBlock"></div>
+      <ng-template #thenBlock>
+        <div class="animation-bg" *ngIf="isLoading">
+          <img class="img-rotation" src="assets/img/preloader.png" alt=""/>
+        </div>
+      </ng-template>
+      <ng-template #elseBlock>
+        <ng-container *ngFor="let toDoItem of toDoItems">
+          <app-to-do-list-item
+            [item]="toDoItem"
+            (actionTask)="actionItem($event)"
+          ></app-to-do-list-item>
+        </ng-container>
+      </ng-template>
     </div>
-  </ng-template>
-  <ng-template #elseBlock>
-    <ng-container *ngFor="let toDoItem of toDoItems">
-      <app-to-do-list-item
-        [item]="toDoItem"
-        (delTask)="delItem($event)"
-      ></app-to-do-list-item>
-    </ng-container>
-  </ng-template>
-</div>
-<div class="todolist__new-task">
-  <div class="todolist__new-task_item">
-    <input matInput type="text" #task (input)="taskHandler(task.value)" />
-    <app-button-component
-      title="Добавить"
-      classButton="button__add"
-      [disabled]="disabled"
-      (click)="saveTask(task.value)"
-    ></app-button-component>
+    <div class="todo__new-task">
+      <div class="todo__form">
+        <input matInput class="todo__form_input" type="text" #task (input)="taskHandler(task.value)" />
+        <textarea class="todo__form_textarea" rows="3" name="text"></textarea>
+      </div>
+      <app-button-component
+        title="Добавить"
+        classButton="button__add"
+        [disabled]="disabled"
+        (click)="saveTask(task.value)"
+      ></app-button-component>
+    </div>
+  </div>
+  <div class="todo__description">
+    {{ toDoItems[selectedItemId]?.description ? toDoItems[selectedItemId]?.description : "Выберите задачу" }}
   </div>
 </div>

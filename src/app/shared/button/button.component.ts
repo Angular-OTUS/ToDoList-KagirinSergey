@@ -2,10 +2,10 @@ import { Component, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-button-component',
-  templateUrl: './button-component.component.html',
-  styleUrls: ['./button-component.component.scss'],
+  templateUrl: './button.component.html',
+  styleUrls: ['./button.component.scss'],
 })
-export class ButtonComponentComponent {
+export class ButtonComponent {
   @Input() title!: string;
   @Input() classButton!: string;
   @Input() disabled!: boolean;

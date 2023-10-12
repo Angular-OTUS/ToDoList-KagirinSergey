@@ -8,9 +8,11 @@ import { IToDoItem } from "../../models/to-do-list.model";
 })
 export class ToDoListItemComponent {
   @Input() item!: IToDoItem;
-  @Output() delTask: EventEmitter<number> = new EventEmitter<number>();
+  @Output() actionTask: EventEmitter<any> = new EventEmitter<any>();
+  public selected = false;
 
-  public clickDel(id: number): void {
-    this.delTask.emit(id);
+  public clickTask(id: number, isDel = false): void {
+    this.actionTask.emit([id, isDel]);
+    this.selected = !this.selected;
   }
 }

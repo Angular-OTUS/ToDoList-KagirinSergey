@@ -1,5 +1,6 @@
-import {Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IToDoItem } from "../../models/to-do-list.model";
+// import { TooltipDirective } from "../../directives/tooltip/tooltip.directive";
 
 @Component({
   selector: 'app-to-do-list',
@@ -13,19 +14,23 @@ export class ToDoListComponent implements OnInit {
     {
       id: 0,
       text: "Сходить в магазин",
+      description: "Купить продукты, газировку и зубную пасту",
     },
     {
       id: 1,
       text: "Помыть окно",
+      description: "Помыть окно в спальне, на кухне и на балконе",
     },
     {
       id: 2,
       text: "Оплатить интернет",
+      description: "Оплатить интернет до 15 октября",
     },
   ];
 
   public isLoading = true;
   public disabled = true;
+  public selectedItemId!: number;
 
   ngOnInit() {
     setTimeout(
@@ -48,13 +53,22 @@ export class ToDoListComponent implements OnInit {
     this.disabled = task.length > 3 ?  false : true;
   }
 
-  public delItem(id: number): void {
-    const itemDel = this.toDoItems.findIndex(el => el.id === id)
-    this.toDoItems.splice(itemDel, 1);
+  public actionItem(array: [number, boolean]): void {
+    const id = array[0];
+    if (array[1]) {
+      const itemDel = this.toDoItems.findIndex(el => el.id === id)
+      this.toDoItems.splice(itemDel, 1);
+    } else {
+      this.selectedItemId = id ? id : 0;
+    }
   }
 
   public saveTask(text: string): void {
-    this.toDoItems.push({ id: this.getLastId() + 1, text: text });
-    console.log(this.toDoItems);
+    this.toDoItems.push({ id: this.getLastId() + 1, text: text, description: "111" });
+  }
+
+  public getDesc(id: number): void {
+    const itemDel = this.toDoItems.findIndex(el => el.id === id)
+    this.toDoItems.splice(itemDel, 1);
   }
 }

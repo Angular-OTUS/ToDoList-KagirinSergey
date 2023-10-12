@@ -1,12 +1,11 @@
-.todolist {
-  &__current-task {
-    max-width: 600px;
+.todo__item {
+  max-width: 600px;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 6px;
+  border-bottom: solid 1px grey;
 
-    &_item {
-      display: flex;
-      justify-content: space-between;
-      padding: 12px 0;
-      border-bottom: solid 1px grey;
-    }
+  &.selected {
+    background-color: grey;
   }
 }
