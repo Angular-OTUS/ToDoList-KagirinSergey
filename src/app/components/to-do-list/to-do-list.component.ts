@@ -55,6 +55,7 @@ export class ToDoListComponent implements OnInit {
 
   public actionItem(array: [number, boolean]): void {
     const id = array[0];
+
     if (array[1]) {
       const itemDel = this.toDoItems.findIndex(el => el.id === id)
       this.toDoItems.splice(itemDel, 1);
@@ -63,8 +64,12 @@ export class ToDoListComponent implements OnInit {
     }
   }
 
-  public saveTask(text: string): void {
-    this.toDoItems.push({ id: this.getLastId() + 1, text: text, description: "111" });
+  public saveTask(inputText: string, textareaText?: string): void {
+    this.toDoItems.push({
+      id: this.getLastId() + 1,
+      text: inputText,
+      description: textareaText ? textareaText : ""
+    });
   }
 
   public getDesc(id: number): void {

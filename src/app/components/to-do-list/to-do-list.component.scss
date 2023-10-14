@@ -1,3 +1,10 @@
+:host {
+  .selected {
+    display: block;
+    background-color: grey;
+  }
+}
+
 .todo {
   &__wrapper {
     display: flex;

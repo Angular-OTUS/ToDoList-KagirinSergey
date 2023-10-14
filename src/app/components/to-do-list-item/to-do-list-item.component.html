@@ -1,8 +1,9 @@
-<div class="todo__item" [class.selected]="selected">
+<div class="todo__item">
   <span (click)="clickTask(item.id)">{{ item.text }}</span>
   <app-button-component
     title="Удалить"
     classButton="button__delete"
+    tooltip="Удалить"
     (click)="clickTask(item.id, true)"
   ></app-button-component>
 </div>

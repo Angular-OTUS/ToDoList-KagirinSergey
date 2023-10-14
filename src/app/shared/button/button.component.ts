@@ -9,6 +9,7 @@ export class ButtonComponent {
   @Input() title!: string;
   @Input() classButton!: string;
   @Input() disabled!: boolean;
+  @Input() tooltip!: string;
   public actionButton: EventEmitter<any> = new EventEmitter<any>();
 
   public clickButton(): void {

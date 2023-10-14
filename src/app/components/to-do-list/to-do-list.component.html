@@ -8,24 +8,26 @@
         </div>
       </ng-template>
       <ng-template #elseBlock>
-        <ng-container *ngFor="let toDoItem of toDoItems">
+        <ng-container *ngFor="let toDoItem of toDoItems; let indexOfelement = index;">
           <app-to-do-list-item
             [item]="toDoItem"
             (actionTask)="actionItem($event)"
+            [class.selected]="indexOfelement === selectedItemId"
           ></app-to-do-list-item>
         </ng-container>
       </ng-template>
     </div>
     <div class="todo__new-task">
       <div class="todo__form">
-        <input matInput class="todo__form_input" type="text" #task (input)="taskHandler(task.value)" />
-        <textarea class="todo__form_textarea" rows="3" name="text"></textarea>
+        <input matInput class="todo__form_input" type="text" #taskInput (input)="taskHandler(taskInput.value)" />
+        <textarea class="todo__form_textarea" #taskTextarea rows="3" name="text"></textarea>
       </div>
       <app-button-component
         title="Добавить"
         classButton="button__add"
+        tooltip="Добавить"
         [disabled]="disabled"
-        (click)="saveTask(task.value)"
+        (click)="saveTask(taskInput.value, taskTextarea.value)"
       ></app-button-component>
     </div>
   </div>
