@@ -4,7 +4,7 @@ import { ComponentPortal } from '@angular/cdk/portal';
 
 import { TooltipComponent } from './tooltip.component';
 
-@Directive({ selector: '[tooltip]' })
+@Directive({ selector: '[app-tooltip-directive]' })
 
 export class TooltipDirective implements OnInit {
   @Input('tooltip') text = '';

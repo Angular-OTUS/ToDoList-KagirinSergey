@@ -68,7 +68,7 @@ export class ToDoListComponent implements OnInit {
     this.toDoItems.push({
       id: this.getLastId() + 1,
       text: inputText,
-      description: textareaText ? textareaText : ""
+      description: textareaText ? textareaText : "",
     });
   }
 
