@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IToDoItem } from "../../models/to-do-list.model";
-// import { TooltipDirective } from "../../directives/tooltip/tooltip.directive";
+import { StoreService } from "./../../services/store.service";
 
 @Component({
   selector: 'app-to-do-list',
@@ -9,71 +9,48 @@ import { IToDoItem } from "../../models/to-do-list.model";
 })
 
 export class ToDoListComponent implements OnInit {
-  public task = "";
-  public toDoItems: IToDoItem[] = [
-    {
-      id: 0,
-      text: "Сходить в магазин",
-      description: "Купить продукты, газировку и зубную пасту",
-    },
-    {
-      id: 1,
-      text: "Помыть окно",
-      description: "Помыть окно в спальне, на кухне и на балконе",
-    },
-    {
-      id: 2,
-      text: "Оплатить интернет",
-      description: "Оплатить интернет до 15 октября",
-    },
-  ];
-
   public isLoading = true;
   public disabled = true;
   public selectedItemId!: number;
 
+  constructor(
+    private storeService: StoreService
+  ) {   }
+
+  public toDoItems: IToDoItem[] = [];
+
   ngOnInit() {
+    this.getData();
+
     setTimeout(
       () => this.isLoading = false,
       500,
     );
   }
 
-  private getLastId() {
-    if(this.toDoItems.length > 0) {
-      const max = this.toDoItems.reduce(function(prev, current) {
-        return +current.id > +prev.id ? current : prev;
-      });
-      return max.id;
-    }
-    return 0;
-  }
+  public getData(): IToDoItem[] {
+    return this.toDoItems = this.storeService.getData();
+  };
 
   public taskHandler(task: string): void {
     this.disabled = task.length > 3 ?  false : true;
   }
 
   public actionItem(array: [number, boolean]): void {
-    const id = array[0];
 
+    const id = array[0];console.log(id)
     if (array[1]) {
-      const itemDel = this.toDoItems.findIndex(el => el.id === id)
-      this.toDoItems.splice(itemDel, 1);
+      this.storeService.delTask(id);
+      this.getData();
+      console.log(this.getData())
     } else {
       this.selectedItemId = id ? id : 0;
     }
   }
 
   public saveTask(inputText: string, textareaText?: string): void {
-    this.toDoItems.push({
-      id: this.getLastId() + 1,
-      text: inputText,
-      description: textareaText ? textareaText : "",
-    });
+    this.storeService.setData(inputText, textareaText);
+    this.getData();
   }
 
-  public getDesc(id: number): void {
-    const itemDel = this.toDoItems.findIndex(el => el.id === id)
-    this.toDoItems.splice(itemDel, 1);
-  }
 }

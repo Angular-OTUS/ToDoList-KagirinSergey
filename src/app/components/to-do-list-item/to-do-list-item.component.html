@@ -4,6 +4,7 @@
     title="Удалить"
     classButton="button__delete"
     tooltip="Удалить"
-    (click)="clickTask(item.id, true)"
+    (click)="singleClick(item.id, true)"
+    (dblclick)="doubleClick()"
   ></app-button-component>
 </div>

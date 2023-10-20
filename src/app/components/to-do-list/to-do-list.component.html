@@ -8,11 +8,11 @@
         </div>
       </ng-template>
       <ng-template #elseBlock>
-        <ng-container *ngFor="let toDoItem of toDoItems; let indexOfelement = index;">
+        <ng-container *ngFor="let toDoItem of toDoItems;">
           <app-to-do-list-item
             [item]="toDoItem"
             (actionTask)="actionItem($event)"
-            [class.selected]="indexOfelement === selectedItemId"
+            [class.selected]="toDoItem.id === selectedItemId"
           ></app-to-do-list-item>
         </ng-container>
       </ng-template>

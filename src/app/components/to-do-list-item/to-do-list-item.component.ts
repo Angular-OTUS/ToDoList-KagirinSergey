@@ -9,8 +9,24 @@ import { IToDoItem } from "../../models/to-do-list.model";
 export class ToDoListItemComponent {
   @Input() item!: IToDoItem;
   @Output() actionTask: EventEmitter<any> = new EventEmitter<any>();
+  private timer: number;
+  private preventSimpleClick: boolean;
 
-  public clickTask(id: number, isDel = false): void {
-    this.actionTask.emit([id, isDel]);
+  public singleClick(id: number, isDel = false): void {
+    this.timer = 0;
+    this.preventSimpleClick = false;
+    let delay = 200;
+
+    this.timer = setTimeout(() => {
+      if(!this.preventSimpleClick){
+        this.actionTask.emit([id, isDel]);
+      }
+    }, delay);
+  }
+
+  doubleClick(): void{
+    this.preventSimpleClick = true;
+    clearTimeout(this.timer);
+  ...
   }
 }
