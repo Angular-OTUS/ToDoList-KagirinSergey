@@ -10,12 +10,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ToDoListComponent } from './components/to-do-list/to-do-list.component';
 import { ToDoListItemComponent } from './components/to-do-list-item/to-do-list-item.component';
+import { ToastComponent } from './components/toast/toast.component';
+import { StoreService } from "./services/store/store.service";
+import { ToastService } from "./services/toast/toast.service";
 
 @NgModule({
   declarations: [
     AppComponent,
     ToDoListComponent,
     ToDoListItemComponent,
+    ToastComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,7 +29,10 @@ import { ToDoListItemComponent } from './components/to-do-list-item/to-do-list-i
     MaterialModule,
     SharedModule,
   ],
-  providers: [],
+  providers: [
+    StoreService,
+    ToastService,
+  ],
   bootstrap: [AppComponent],
 })
 

@@ -5,6 +5,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
 import { TooltipDirective } from './tooltip/tooltip.directive';
 
 import { MaterialModule } from './../material/material.module';
+import { InputComponent } from './input/input.component';
 
 
 @NgModule({
@@ -12,15 +13,17 @@ import { MaterialModule } from './../material/material.module';
     ButtonComponent,
     TooltipComponent,
     TooltipDirective,
+    InputComponent,
   ],
   imports: [
     CommonModule,
     MaterialModule,
   ],
-  exports: [
-    ButtonComponent,
-    TooltipDirective,
-  ],
+    exports: [
+        ButtonComponent,
+        TooltipDirective,
+        InputComponent,
+    ],
 })
 
 export class SharedModule {}

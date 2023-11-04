@@ -1,19 +1,23 @@
 import { Injectable } from '@angular/core';
-import data from './../../assets/data.json';
-import { IToDoItem } from "../models/to-do-list.model";
+import { IToDoItem } from "../../models/to-do-list.model";
+import { ToastService } from "../toast/toast.service";
+import data from '../../../assets/data.json';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StoreService {
   private toDoItems: IToDoItem[] = data;
-  constructor() { }
 
-  public getData(): IToDoItem[] {
-    return this.toDoItems;
+  constructor(
+    private toastServices: ToastService
+  ) { }
+
+  public getData(id?: number): IToDoItem[] {
+    return id ? [this.toDoItems[id]] : this.toDoItems;
   }
 
-  private getNextId() {
+  public getNextId() {
     const tasks = this.getData();
     if(tasks.length > 0) {
       const max = tasks.reduce(function(prev, current) {
@@ -31,12 +35,15 @@ export class StoreService {
       "description": description ? description : ""
     };
     this.toDoItems.push(newTask);
+    this.toastServices.setData(newTask);
   }
 
-  public delTask(id: number) {
+  public delTask(id: number): void {
     const itemDel = this.toDoItems.findIndex(el => el.id === id)
     this.toDoItems.splice(itemDel, 1);
   }
 
-
+  public updateTask(id: number, text: string): void {
+    this.toDoItems[id].text = text;
+  }
 }

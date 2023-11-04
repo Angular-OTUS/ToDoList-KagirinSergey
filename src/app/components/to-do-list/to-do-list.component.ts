@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IToDoItem } from "../../models/to-do-list.model";
-import { StoreService } from "./../../services/store.service";
+import { IToDoItem, TypeAction } from "../../models/to-do-list.model";
+import { StoreService } from "../../services/store/store.service";
 
 @Component({
   selector: 'app-to-do-list',
@@ -12,14 +12,14 @@ export class ToDoListComponent implements OnInit {
   public isLoading = true;
   public disabled = true;
   public selectedItemId!: number;
+  public toDoItems: IToDoItem[] = [];
+  public showDescription: string = "Выберите описание";
 
   constructor(
     private storeService: StoreService
   ) {   }
 
-  public toDoItems: IToDoItem[] = [];
-
-  ngOnInit() {
+  public ngOnInit() {
     this.getData();
 
     setTimeout(
@@ -28,23 +28,37 @@ export class ToDoListComponent implements OnInit {
     );
   }
 
-  public getData(): IToDoItem[] {
-    return this.toDoItems = this.storeService.getData();
-  };
+  public getData(id?: number): IToDoItem[] {
+    if(id) {
+      return this.toDoItems = this.storeService.getData(id);
+    } else {
+      return this.toDoItems = this.storeService.getData();
+    }
+  }
 
   public taskHandler(task: string): void {
     this.disabled = task.length > 3 ?  false : true;
   }
 
-  public actionItem(array: [number, boolean]): void {
-
-    const id = array[0];console.log(id)
-    if (array[1]) {
-      this.storeService.delTask(id);
-      this.getData();
-      console.log(this.getData())
-    } else {
-      this.selectedItemId = id ? id : 0;
+  public actionItem(array: [id: number, typeAction: TypeAction, text?: string]): void {
+    const id = array[0];
+    let text = "";
+    if(array[2]) {
+      text = array[2];
+    }
+    switch(array[1]) {
+      case 'del':
+        this.storeService.delTask(id);
+        this.getData();
+        break;
+      case 'selected':
+        this.selectedItemId = id ? id : 0;
+        const selectedDescription = this.toDoItems[this.selectedItemId]?.description;
+        this.showDescription = selectedDescription ? selectedDescription : "Описание отсутствует";
+        break;
+      case 'update':
+        this.storeService.updateTask(id, text);
+        break;
     }
   }
 

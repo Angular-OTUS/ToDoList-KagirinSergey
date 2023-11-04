@@ -3,3 +3,5 @@ export interface IToDoItem {
   text: string,
   description: string
 }
+
+export type TypeAction = "del" | "update" | "selected";

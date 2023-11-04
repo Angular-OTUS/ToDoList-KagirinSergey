@@ -1,0 +1,20 @@
+<div>
+  <ng-container *ngIf="isVisible">
+    <ng-container *ngFor="let item of toDoItems">
+      <div
+        #toasts
+        [id]="item.id"
+        class="toast__body toast__success"
+      >
+        <div class="icon">
+          <img src="assets/img/icons/success.svg" alt="" />
+        </div>
+        <div class="text">
+          <div class="title">{{ item.text }}</div>
+          <div class="description">{{ item.description }}</div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>
+<!--[ngClass]="{'active': isVisible}"-->

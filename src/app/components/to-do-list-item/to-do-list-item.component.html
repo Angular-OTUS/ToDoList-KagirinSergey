@@ -1,10 +1,16 @@
 <div class="todo__item">
-  <span (click)="clickTask(item.id)">{{ item.text }}</span>
+  <span *ngIf="!isActiveInput"
+    (click)="singleClick(item.id, 'selected')"
+    (dblclick)="doubleClick(item.id)"
+  >{{ item.text }}</span>
+  <div *ngIf="isActiveInput">
+<!--    <app-input></app-input>-->
+    <input matInput class="todo__form_input" type="text" [(ngModel)]="taskInput" />
+  </div>
   <app-button-component
-    title="Удалить"
-    classButton="button__delete"
-    tooltip="Удалить"
-    (click)="singleClick(item.id, true)"
-    (dblclick)="doubleClick()"
+    [title]="isActiveInput ? 'Сохранить' : 'Удалить'"
+    [tooltip]="isActiveInput ? 'Сохранить' : 'Удалить'"
+    (click)="singleClick(item.id, isActiveInput ? 'update' : 'del')"
+    [classButton]="isActiveInput ? 'button__add' : 'button__delete'"
   ></app-button-component>
 </div>
