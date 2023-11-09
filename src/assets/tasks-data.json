@@ -4,7 +4,7 @@
       "id": 0,
       "text": "Сходить в магазин",
       "description": "Купить продукты, газировку и зубную пасту",
-      "status": "Completed"
+      "status": "InProgress"
     },
     {
       "id": 1,
@@ -41,6 +41,12 @@
       "text": "Написать письмо",
       "description": "Написать письмо Деду Морозу",
       "status": "InProgress"
+    },
+    {
+      "id": 7,
+      "text": "rtrtr",
+      "description": "rtrtr555555",
+      "status": "Completed"
     }
   ]
 }

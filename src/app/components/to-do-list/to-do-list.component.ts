@@ -40,12 +40,6 @@ export class ToDoListComponent implements OnInit {
     });
   }
 
-  // public reloadTasks(): void {
-  //   this.storeService.getData().subscribe((data: IToDoItem[]) => {
-  //     this.toDoItems = data;
-  //   });
-  // }
-
   public getTask(id: number): Subscription {
     return this.storeService.getTask(id).subscribe((data) => {
       this.toDoItem = data;
@@ -53,7 +47,6 @@ export class ToDoListComponent implements OnInit {
     }, (error) => {
       console.log(error);
     });
-    // return this.toDoItem;
   }
 
   public updateTask(id: number, task: IToDoItem): void {
