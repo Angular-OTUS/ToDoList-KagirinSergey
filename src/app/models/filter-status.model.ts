@@ -1,1 +1,1 @@
-export type TFilterStatus = 'null' | 'InProgress' | 'Completed'
+export type TFilterStatus = 'InProgress' | 'Completed'

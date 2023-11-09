@@ -1,6 +1,17 @@
 [
   {
-    "title": 'Все',
-    "status": ''
+    "title": "Все",
+    "status": "null",
+    "selected": "selected"
+  },
+  {
+    "title": "Выполняются",
+    "status": "InProgress",
+    "selected": ""
+  },
+  {
+    "title": "Выполненные",
+    "status": "Completed",
+    "selected": ""
   }
 ]

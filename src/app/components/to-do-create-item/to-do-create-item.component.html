@@ -1,0 +1,14 @@
+<div class="todo__new-task">
+  <div class="todo__form">
+    <input matInput class="todo__form_input" type="text" #taskInput (input)="taskHandler(taskInput.value)" />
+    <textarea class="todo__form_textarea" #taskTextarea rows="3" name="text"></textarea>
+  </div>
+  <app-button-component
+    classButton="button__add"
+    tooltip="Добавить"
+    [disabled]="disabled"
+    (click)="saveTask(taskInput.value, taskTextarea.value)"
+  >
+    Добавить
+  </app-button-component>
+</div>
