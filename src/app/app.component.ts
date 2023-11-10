@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastService } from "./services/toast/toast.service";
+// import { ToastService } from "./services/toast/toast.service";
 // import {IToDoItem} from "./models/to-do-list.model";
 
 @Component({
@@ -10,11 +10,11 @@ import { ToastService } from "./services/toast/toast.service";
 export class AppComponent implements OnInit {
   title = 'ToDoList';
   // public toDoItems: IToDoItem[] = [];
-  public text!: string;
+  // public text!: string;
   // public description!: string;
 
   constructor(
-    private toastService: ToastService
+    // private toastService: ToastService
   ) {   }
 
   public ngOnInit() {
