@@ -1,1 +1,1 @@
-<input matInput class="input" type="text" #taskInput (input)="taskHandler(taskInput.value)" />
+<input matInput class="input" type="text" #taskInput (keydown)="onChange(taskInput.value)"  />

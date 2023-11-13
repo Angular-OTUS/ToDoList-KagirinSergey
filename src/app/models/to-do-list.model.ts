@@ -1,7 +1,10 @@
+import { TFilterStatus } from "./filter-status.model";
+
 export interface IToDoItem {
   id: number,
   text: string,
-  description: string
+  description: string,
+  status: TFilterStatus
 }
 
-export type TypeAction = "del" | "update" | "selected";
+export type TypeAction = "delete" | "update" | "selected" | "change";

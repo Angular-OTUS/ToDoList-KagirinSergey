@@ -1,16 +1,30 @@
 <div class="todo__item">
-  <span *ngIf="!isActiveInput"
-    (click)="singleClick(item.id, 'selected')"
-    (dblclick)="doubleClick(item.id)"
-  >{{ item.text }}</span>
-  <div *ngIf="isActiveInput">
-<!--    <app-input></app-input>-->
-    <input matInput class="todo__form_input" type="text" [(ngModel)]="taskInput" />
+  <app-checkbox [status]="item.status" (click)="clickTask(item.id, 'change')"></app-checkbox>
+  <div class="todo__item_text">
+    <span *ngIf="!isActiveInput"
+          (click)="singleClick(item.id, 'selected')"
+          (dblclick)="doubleClick(item.id)"
+    >
+      {{ item.text }}
+    </span>
+    <div *ngIf="isActiveInput">
+      <!--    <app-input></app-input>-->
+      <input matInput class="todo__form_input" type="text" [(ngModel)]="taskInput" />
+    </div>
+    <app-button-component
+      *ngIf="isActiveInput"
+      [tooltip]="'Назад'"
+      classButton="button__delete"
+      (click)="back();"
+    >
+      Назад
+    </app-button-component>
+    <app-button-component
+      [tooltip]="isActiveInput ? 'Сохранить' : 'Удалить'"
+      (click)="singleClick(item.id, isActiveInput ? 'update' : 'delete')"
+      [classButton]="isActiveInput ? 'button__add' : 'button__delete'"
+    >
+      {{ isActiveInput ? 'Сохранить' : 'Удалить'  }}
+    </app-button-component>
   </div>
-  <app-button-component
-    [title]="isActiveInput ? 'Сохранить' : 'Удалить'"
-    [tooltip]="isActiveInput ? 'Сохранить' : 'Удалить'"
-    (click)="singleClick(item.id, isActiveInput ? 'update' : 'del')"
-    [classButton]="isActiveInput ? 'button__add' : 'button__delete'"
-  ></app-button-component>
 </div>

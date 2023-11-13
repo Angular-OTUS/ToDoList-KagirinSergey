@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
+import { Component, Output } from '@angular/core';
 
 @Component({
   selector: 'app-input',
@@ -6,14 +6,11 @@ import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/c
   styleUrls: ['./input.component.scss']
 })
 export class InputComponent {
-  // @ViewChild('taskInput') taskInput!:ElementRef<HTMLInputElement>;
-  // @Output() newTask: EventEmitter<string> = new EventEmitter<string>();
-  public disabled = true;
+  @Output() value: string = "";
 
-  public taskHandler(task: string): void {
-    this.disabled = task.length > 3 ?  false : true;
+  public onChange(task: string): void {
+    this.value = task;
   }
-
 }
 
 

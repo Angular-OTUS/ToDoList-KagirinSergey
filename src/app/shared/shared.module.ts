@@ -6,6 +6,10 @@ import { TooltipDirective } from './tooltip/tooltip.directive';
 
 import { MaterialModule } from './../material/material.module';
 import { InputComponent } from './input/input.component';
+import { LoaderComponent } from './loader/loader.component';
+import { CheckboxComponent } from './checkbox/checkbox.component';
+import { SelectComponent } from './select/select.component';
+import { TextareaComponent } from './textarea/textarea.component';
 
 
 @NgModule({
@@ -14,6 +18,10 @@ import { InputComponent } from './input/input.component';
     TooltipComponent,
     TooltipDirective,
     InputComponent,
+    LoaderComponent,
+    CheckboxComponent,
+    SelectComponent,
+    TextareaComponent,
   ],
   imports: [
     CommonModule,
@@ -23,6 +31,10 @@ import { InputComponent } from './input/input.component';
         ButtonComponent,
         TooltipDirective,
         InputComponent,
+        LoaderComponent,
+        CheckboxComponent,
+        SelectComponent,
+        TextareaComponent,
     ],
 })
 

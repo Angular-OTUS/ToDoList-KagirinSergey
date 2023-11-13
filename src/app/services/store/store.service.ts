@@ -1,49 +1,71 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError } from "rxjs";
+import { retry, catchError } from 'rxjs/operators';
 import { IToDoItem } from "../../models/to-do-list.model";
-import { ToastService } from "../toast/toast.service";
-import data from '../../../assets/data.json';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StoreService {
-  private toDoItems: IToDoItem[] = data;
+  private url = "http://localhost:3000";
 
-  constructor(
-    private toastServices: ToastService
-  ) { }
-
-  public getData(id?: number): IToDoItem[] {
-    return id ? [this.toDoItems[id]] : this.toDoItems;
+  constructor(private http: HttpClient) {
   }
 
-  public getNextId() {
-    const tasks = this.getData();
-    if(tasks.length > 0) {
-      const max = tasks.reduce(function(prev, current) {
-        return +current.id > +prev.id ? current : prev;
-      });
-      return max.id + 1;
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+  };
+
+  public getData(): Observable<IToDoItem[]> {
+    return this.http.get<IToDoItem[]>(
+      this.url + '/tasks'
+    ).pipe(retry(1), catchError(this.handleError));
+  }
+
+  public getTask(id: number): Observable<IToDoItem> {
+    return this.http.get<IToDoItem>(
+      this.url + '/tasks/' + id
+    ).pipe(retry(1), catchError(this.handleError));
+  }
+
+  public createTask(task: IToDoItem): Observable<IToDoItem> {
+    return this.http.post<IToDoItem>(
+      this.url + '/tasks',
+      JSON.stringify(task),
+      this.httpOptions
+    ).pipe(retry(1), catchError(this.handleError));
+  }
+
+  public updateTask(id: number, task: IToDoItem): Observable<IToDoItem> {
+    return this.http
+      .put<IToDoItem>(
+        this.url + '/tasks/' + id,
+        JSON.stringify(task),
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  public deleteTask(id: number) {
+    return this.http
+      .delete<IToDoItem>(
+        this.url + '/tasks/' + id, this.httpOptions
+      ).pipe(retry(1), catchError(this.handleError));
+  }
+
+  private handleError(error: any) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = error.error.message;
+    } else {
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    return 0;
-  }
-
-  public setData(title: string, description?: string): void {
-    const newTask = {
-      "id": this.getNextId(),
-      "text": title,
-      "description": description ? description : ""
-    };
-    this.toDoItems.push(newTask);
-    this.toastServices.setData(newTask);
-  }
-
-  public delTask(id: number): void {
-    const itemDel = this.toDoItems.findIndex(el => el.id === id)
-    this.toDoItems.splice(itemDel, 1);
-  }
-
-  public updateTask(id: number, text: string): void {
-    this.toDoItems[id].text = text;
+    window.alert(errorMessage);
+    return throwError(() => {
+      return errorMessage;
+    });
   }
 }

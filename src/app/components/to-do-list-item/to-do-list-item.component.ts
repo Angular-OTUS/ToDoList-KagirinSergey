@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild  } from '@angular/core';
+import { Component, EventEmitter, Input, Output  } from '@angular/core';
 import { IToDoItem, TypeAction } from "../../models/to-do-list.model";
 // import { InputComponent } from "./../../shared/input/input.component"
 import { StoreService } from "../../services/store/store.service";
@@ -39,7 +39,11 @@ export class ToDoListItemComponent {
     this.isActiveInput = true;
   }
 
-  // public getValue(event?: Event) {
-  //   console.log(event, 4)
-  // }
+  public clickTask(id: number, action: string): void {
+    this.actionTask.emit([id, action]);
+  }
+
+  public back(): void {
+    this.isActiveInput = !this.isActiveInput;
+  }
 }

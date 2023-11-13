@@ -1,37 +1,26 @@
 <div class="todo__wrapper">
   <div>
     <div class="todo__container">
+      <div>
+        <app-select [filterData]="filterList" (changeStatus)="changeStatus($event)"></app-select>
+      </div>
       <div *ngIf="isLoading; then thenBlock else elseBlock"></div>
       <ng-template #thenBlock>
-        <div class="animation-bg" *ngIf="isLoading">
-          <img class="img-rotation" src="assets/img/preloader.png" alt=""/>
-        </div>
+        <app-loader *ngIf="isLoading"></app-loader>
       </ng-template>
       <ng-template #elseBlock>
-        <ng-container *ngFor="let toDoItem of toDoItems;">
+        <ng-container *ngFor="let toDoItem of toDoItems; let indexOfelement = index;">
           <app-to-do-list-item
             [item]="toDoItem"
             (actionTask)="actionItem($event)"
-            [class.selected]="toDoItem.id === selectedItemId"
+            [class.selected]="indexOfelement === selectedItemId"
           ></app-to-do-list-item>
         </ng-container>
       </ng-template>
     </div>
-    <div class="todo__new-task">
-      <div class="todo__form">
-        <input matInput class="todo__form_input" type="text" #taskInput (input)="taskHandler(taskInput.value)" />
-        <textarea class="todo__form_textarea" #taskTextarea rows="3" name="text"></textarea>
-      </div>
-      <app-button-component
-        title="Добавить"
-        classButton="button__add"
-        tooltip="Добавить"
-        [disabled]="disabled"
-        (click)="saveTask(taskInput.value, taskTextarea.value)"
-      ></app-button-component>
-    </div>
+    <app-to-do-create-item></app-to-do-create-item>
   </div>
   <div class="todo__description">
-    {{ showDescription }}
+    {{ currentDescription }}
   </div>
 </div>

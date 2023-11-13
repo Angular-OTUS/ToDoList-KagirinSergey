@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from "rxjs";
 import { IToDoItem, TypeAction } from "../../models/to-do-list.model";
+import { IFilterTask } from "../../models/filter.model";
 import { StoreService } from "../../services/store/store.service";
+import filterData from "../../../assets/filter-data.json";
 
 @Component({
   selector: 'app-to-do-list',
@@ -9,62 +12,98 @@ import { StoreService } from "../../services/store/store.service";
 })
 
 export class ToDoListComponent implements OnInit {
+  public filterList: IFilterTask[] = filterData;
+  public toDoItem!: IToDoItem;
+  public toDoItems!: IToDoItem[];
+  public unFilteredTasks!: IToDoItem[];
   public isLoading = true;
-  public disabled = true;
   public selectedItemId!: number;
-  public toDoItems: IToDoItem[] = [];
-  public showDescription: string = "Выберите описание";
+  public currentDescription: string | undefined = '';
 
-  constructor(
-    private storeService: StoreService
-  ) {   }
+  constructor(private storeService: StoreService) { }
 
   public ngOnInit() {
-    this.getData();
-
     setTimeout(
       () => this.isLoading = false,
       500,
     );
+
+    this.getData();
   }
 
-  public getData(id?: number): IToDoItem[] {
-    if(id) {
-      return this.toDoItems = this.storeService.getData(id);
-    } else {
-      return this.toDoItems = this.storeService.getData();
-    }
+  public getData(): void {
+    this.storeService.getData().subscribe(data => {
+      this.toDoItems = data;
+      this.unFilteredTasks = this.toDoItems;
+    }, (error) => {
+      console.log(error);
+    });
   }
 
-  public taskHandler(task: string): void {
-    this.disabled = task.length > 3 ?  false : true;
+  public getTask(id: number): Subscription {
+    return this.storeService.getTask(id).subscribe((data) => {
+      this.toDoItem = data;
+      // console.log(this.toDoItem, 3);
+    }, (error) => {
+      console.log(error);
+    });
+  }
+
+  public updateTask(id: number, task: IToDoItem): void {
+    this.storeService.updateTask(id, task).subscribe((data) => {
+      this.getData();
+    }, (error) => {
+      console.log(error);
+    });
+  }
+
+  public deleteTask(id: number): void {
+    this.storeService.deleteTask(id).subscribe((data) => {
+      this.getData();
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   public actionItem(array: [id: number, typeAction: TypeAction, text?: string]): void {
     const id = array[0];
-    let text = "";
-    if(array[2]) {
-      text = array[2];
-    }
-    switch(array[1]) {
-      case 'del':
-        this.storeService.delTask(id);
-        this.getData();
-        break;
-      case 'selected':
-        this.selectedItemId = id ? id : 0;
-        const selectedDescription = this.toDoItems[this.selectedItemId]?.description;
-        this.showDescription = selectedDescription ? selectedDescription : "Описание отсутствует";
-        break;
-      case 'update':
-        this.storeService.updateTask(id, text);
-        break;
+    if(array[1] === 'delete') {
+      this.deleteTask(id);
+      // const itemDel = this.toDoItems.findIndex(el => el.id === id);
+      // this.toDoItems.splice(itemDel, 1);
+    } else if (array[1] === 'selected') {
+      this.selectedItemId = id ? id : 0;
+      this.currentDescription =
+        this.toDoItems[this.selectedItemId]?.description
+          ? this.toDoItems[this.selectedItemId]?.description
+          : "Выберите задачу";
+    } else if (array[1] === 'change') {
+      this.getTask(id);
+      const changeTask = this.toDoItems.filter(item => item.id === id);
+      changeTask[0].status === 'InProgress'
+        ? changeTask[0].status = 'Completed'
+        : changeTask[0].status = 'InProgress';
+      this.updateTask(id, changeTask[0]);
     }
   }
 
-  public saveTask(inputText: string, textareaText?: string): void {
-    this.storeService.setData(inputText, textareaText);
-    this.getData();
+  public changeStatus(array: [string]) {
+    const status = array[0];
+
+    if(status !== "null") {
+      this.toDoItems = this.unFilteredTasks.filter(item =>
+        item.status === status
+      );
+    } else {
+      this.toDoItems = this.unFilteredTasks;
+    }
+    return this.toDoItems;
   }
 
+
+
+  // public getDesc(id: number): void {
+  //   const itemDel = this.toDoItems.findIndex(el => el.id === id)
+  //   this.toDoItems.splice(itemDel, 1);
+  // }
 }

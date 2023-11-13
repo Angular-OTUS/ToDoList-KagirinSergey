@@ -23,27 +23,31 @@ export class ToastComponent implements OnInit, ngAfterViewInit, OnDestroy {
     private toastService: ToastService,
     private storeService: StoreService
   ) {
-    this.subscription = this.toastService
-      .getTasks()
-      .subscribe((lastTask) => {
-        this.viewToggleToast([lastTask], lastTask.id);
-      });
+    // this.subscription = this.toastService
+    //   .getTasks()
+    //   .subscribe((lastTask) => {
+    //     this.viewToggleToast([lastTask], lastTask.id);
+    //   });
   }
 
   public ngOnInit(): void {
-    this.getData();
+    //this.getData();
   }
 
   public ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  public getData(): IToDoItem[] {
-    return this.toDoItems = this.storeService.getData();
+  public getData(): void {
+    this.storeService.getData().subscribe(data => {
+      this.toDoItems = data;
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   public ngAfterViewInit(): void {
-    this.viewToggleToast(this.getData());
+    //this.viewToggleToast(this.toDoItems);
   }
 
   public viewToggleToast(tasks: IToDoItem[], newTaskId?: number) {
