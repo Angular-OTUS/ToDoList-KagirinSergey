@@ -1,7 +1,9 @@
 <div class="todo__new-task">
   <div class="todo__form">
     <app-input #taskInput (keydown)="taskHandler(taskInput.value);"></app-input>
-    <app-textarea #taskTextarea></app-textarea>
+    <div class="todo__form_textarea">
+      <app-textarea #taskTextarea></app-textarea>
+    </div>
   </div>
   <app-button-component
     classButton="button__add"

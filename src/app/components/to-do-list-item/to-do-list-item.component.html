@@ -7,22 +7,22 @@
     >
       {{ item.text }}
     </span>
-    <div *ngIf="isActiveInput">
-      <!--    <app-input></app-input>-->
-      <input matInput class="todo__form_input" type="text" [(ngModel)]="taskInput" />
+    <div class="todo__item_input" [ngClass]="isActiveInput ? 'button__add' : 'disabled'">
+      <app-input #taskInput (keydown)="taskHandler(taskInput.value);"></app-input>
     </div>
     <app-button-component
+      classButton="button__delete"
       *ngIf="isActiveInput"
       [tooltip]="'Назад'"
-      classButton="button__delete"
       (click)="back();"
     >
       Назад
     </app-button-component>
     <app-button-component
       [tooltip]="isActiveInput ? 'Сохранить' : 'Удалить'"
-      (click)="singleClick(item.id, isActiveInput ? 'update' : 'delete')"
       [classButton]="isActiveInput ? 'button__add' : 'button__delete'"
+      [disabled]="isActiveInput && disabled"
+      (click)="action(item.id, isActiveInput ? 'update' : 'delete', taskInput.value);"
     >
       {{ isActiveInput ? 'Сохранить' : 'Удалить'  }}
     </app-button-component>

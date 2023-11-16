@@ -1,0 +1,18 @@
+<div>
+  <ng-container *ngIf="isVisible">
+    <div
+      #toasts
+      class="toast__body"
+    >
+      <div class="icon">
+        <img src="../../../assets/img/icons/{{ type }}.svg" alt="" />
+      </div>
+      <div class="text">
+        <div class="title">{{ text }}</div>
+        <div *ngIf="description" class="description">
+          {{ description }}
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

@@ -26,14 +26,5 @@
   &__form {
     display: flex;
     flex-direction: column;
-
-    &_input,
-    &_textarea {
-      width: 300px;
-    }
-
-    &_textarea {
-      margin-top: 12px;
-    }
   }
 }

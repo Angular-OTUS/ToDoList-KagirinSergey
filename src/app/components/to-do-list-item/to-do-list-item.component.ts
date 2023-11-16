@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, Output  } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IToDoItem, TypeAction } from "../../models/to-do-list.model";
-// import { InputComponent } from "./../../shared/input/input.component"
 import { StoreService } from "../../services/store/store.service";
 
 @Component({
@@ -8,17 +7,21 @@ import { StoreService } from "../../services/store/store.service";
   templateUrl: './to-do-list-item.component.html',
   styleUrls: ['./to-do-list-item.component.scss'],
 })
-export class ToDoListItemComponent {
+export class ToDoListItemComponent implements OnInit {
   @Input() item!: IToDoItem;
   @Output() actionTask: EventEmitter<any> = new EventEmitter<any>();
+
+  public disabled: boolean = true;
   private timer!: number;
   private preventSimpleClick!: boolean;
   public isActiveInput = false;
-  public taskInput!: string;
+  public value: string = "";
 
-  constructor(
-    private storeService: StoreService
-  ) {   }
+  constructor() {   }
+
+  public ngOnInit() {
+    this.taskHandler("");
+  }
 
   public singleClick(id: number, typeAction: TypeAction): void {
     this.timer = 0;
@@ -27,7 +30,7 @@ export class ToDoListItemComponent {
 
     this.timer = setTimeout(() => {
       if(!this.preventSimpleClick) {
-        this.actionTask.emit([id, typeAction, this.taskInput]);
+        this.actionTask.emit([id, typeAction]);
         this.isActiveInput = false;
       }
     }, delay);
@@ -45,5 +48,13 @@ export class ToDoListItemComponent {
 
   public back(): void {
     this.isActiveInput = !this.isActiveInput;
+  }
+
+  public taskHandler(task: string): void {
+    this.disabled = task.length > 3 ? false : true;
+  }
+
+  public action(id: number, typeAction: TypeAction, inputText: string) {
+    this.actionTask.emit([id, typeAction, inputText]);
   }
 }

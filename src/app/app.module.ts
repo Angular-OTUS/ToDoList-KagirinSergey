@@ -12,7 +12,7 @@ import { AppComponent } from './app.component';
 import { ToDoListComponent } from './components/to-do-list/to-do-list.component';
 import { ToDoListItemComponent } from './components/to-do-list-item/to-do-list-item.component';
 import { ToDoCreateItemComponent } from './components/to-do-create-item/to-do-create-item.component';
-import { ToastComponent } from './components/toast/toast.component';
+import { ToastComponent } from './shared/toast/toast.component';
 import { StoreService } from "./services/store/store.service";
 import { ToastService } from "./services/toast/toast.service";
 

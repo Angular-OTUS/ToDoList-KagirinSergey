@@ -35,6 +35,12 @@
       "text": "Поменять резину",
       "description": "Заменить летнюю резину на зимнюю",
       "status": "Completed"
+    },
+    {
+      "id": 6,
+      "text": "1234",
+      "description": "11111111",
+      "status": "InProgress"
     }
   ]
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from "rxjs";
-import { IToDoItem, TypeAction } from "../../models/to-do-list.model";
+import { IToast, IToDoItem, TypeAction } from "../../models/to-do-list.model";
 import { IFilterTask } from "../../models/filter.model";
 import { StoreService } from "../../services/store/store.service";
+import { ToastService } from "../../services/toast/toast.service";
 import filterData from "../../../assets/filter-data.json";
 
 @Component({
@@ -19,8 +20,13 @@ export class ToDoListComponent implements OnInit {
   public isLoading = true;
   public selectedItemId!: number;
   public currentDescription: string | undefined = '';
+  public value: string = "";
 
-  constructor(private storeService: StoreService) { }
+
+  constructor(
+    private storeService: StoreService,
+    private toastService: ToastService,
+  ) { }
 
   public ngOnInit() {
     setTimeout(
@@ -43,7 +49,6 @@ export class ToDoListComponent implements OnInit {
   public getTask(id: number): Subscription {
     return this.storeService.getTask(id).subscribe((data) => {
       this.toDoItem = data;
-      // console.log(this.toDoItem, 3);
     }, (error) => {
       console.log(error);
     });
@@ -51,14 +56,26 @@ export class ToDoListComponent implements OnInit {
 
   public updateTask(id: number, task: IToDoItem): void {
     this.storeService.updateTask(id, task).subscribe((data) => {
+      const updateToast: IToast = {
+        text: task.text,
+        description: task.description,
+        type: "info"
+      }
+      this.toastService.viewToast(updateToast);
       this.getData();
     }, (error) => {
       console.log(error);
     });
   }
 
-  public deleteTask(id: number): void {
+  public deleteTask(id: number, text: string, description: string): void {
     this.storeService.deleteTask(id).subscribe((data) => {
+      const delToast: IToast = {
+        text: text,
+        description: description,
+        type: "delete"
+      }
+      this.toastService.viewToast(delToast);
       this.getData();
     }, (error) => {
       console.log(error);
@@ -67,17 +84,26 @@ export class ToDoListComponent implements OnInit {
 
   public actionItem(array: [id: number, typeAction: TypeAction, text?: string]): void {
     const id = array[0];
-    if(array[1] === 'delete') {
-      this.deleteTask(id);
-      // const itemDel = this.toDoItems.findIndex(el => el.id === id);
-      // this.toDoItems.splice(itemDel, 1);
-    } else if (array[1] === 'selected') {
+    const status = array[1];
+    if(status === 'delete') {
+      this.getTask(id);
+      const changeTask = this.toDoItems.filter(item => item.id === id);
+      this.deleteTask(id, changeTask[0].text, changeTask[0].description);
+    } else if (status === 'selected') {
       this.selectedItemId = id ? id : 0;
       this.currentDescription =
         this.toDoItems[this.selectedItemId]?.description
           ? this.toDoItems[this.selectedItemId]?.description
           : "Выберите задачу";
-    } else if (array[1] === 'change') {
+    } else if (status === 'update') {
+      const text = array[2];
+      if(text){
+        this.getTask(id);
+        const changeTask = this.toDoItems.filter(item => item.id === id);
+        changeTask[0].text = text;
+        this.updateTask(id, changeTask[0]);
+      }
+    } else if (status === 'change') {
       this.getTask(id);
       const changeTask = this.toDoItems.filter(item => item.id === id);
       changeTask[0].status === 'InProgress'
@@ -99,11 +125,4 @@ export class ToDoListComponent implements OnInit {
     }
     return this.toDoItems;
   }
-
-
-
-  // public getDesc(id: number): void {
-  //   const itemDel = this.toDoItems.findIndex(el => el.id === id)
-  //   this.toDoItems.splice(itemDel, 1);
-  // }
 }

@@ -11,6 +11,8 @@ export class InputComponent {
   public onChange(task: string): void {
     this.value = task;
   }
+
+
 }
 
 

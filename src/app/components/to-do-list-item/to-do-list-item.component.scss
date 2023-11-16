@@ -10,4 +10,21 @@
     flex: 1;
     justify-content: space-between;
   }
+
+  &_input {
+    &.disabled {
+      display: none;
+    }
+
+    &.active {
+      display: block;
+    }
+  }
+
+  &_input,
+  &_textarea {
+  }
+
+  &_textarea {
+  }
 }
