@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IToDoItem, TypeAction } from "../../models/to-do-list.model";
-import { StoreService } from "../../services/store/store.service";
 
 @Component({
   selector: 'app-to-do-list-item',

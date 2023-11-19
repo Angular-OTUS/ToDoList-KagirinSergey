@@ -10,7 +10,7 @@ import { IToast, TToast } from "../../models/to-do-list.model";
 export class ToastComponent {
   public text!: string;
   public description!: string;
-  public type!: TToast;
+  public type: TToast = "create";
   public isVisible = true;
 
   @ViewChild('toasts') toast!: ElementRef;
