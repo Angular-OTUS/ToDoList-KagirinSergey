@@ -1,0 +1,9 @@
+<select #selectStatus (change)="change(selectStatus.value);">
+    <option
+      *ngFor="let item of filterData"
+      [value]="item.status"
+      [selected]="item.selected"
+    >
+      {{ item.title }}
+    </option>
+</select>

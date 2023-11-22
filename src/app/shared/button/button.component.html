@@ -1,0 +1,9 @@
+<button
+  class="button {{ classButton }}"
+  [disabled]="disabled"
+  (click)="clickButton();"
+  matTooltip="{{ tooltip }}"
+  matTooltipPosition="below"
+>
+  <ng-content></ng-content>
+</button>
