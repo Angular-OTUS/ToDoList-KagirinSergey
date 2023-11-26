@@ -7,14 +7,16 @@ import { TFilterStatus } from "../../models/filter-status.model";
   styleUrls: ['./checkbox.component.scss']
 })
 export class CheckboxComponent {
+  @Input() id!: number;
+  @Input() text: string = "";
   @Input() status!: TFilterStatus;
   public changeStatus: EventEmitter<any> = new EventEmitter<any>();
-  public isChecked!: boolean;
+  public isChecked!: "checked" | undefined;
 
   constructor() {
-    setTimeout(()=>{
+    setTimeout(()=> {
       if(this.status === 'Completed') {
-        this.isChecked = true;
+        this.isChecked = "checked";
       }
     }, 100);
   }

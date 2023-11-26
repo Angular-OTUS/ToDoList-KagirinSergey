@@ -5,11 +5,24 @@ import { ToDoListComponent } from "./components/to-do-list/to-do-list.component"
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'tasks',
+    redirectTo: 'backlog',
     pathMatch: "full"
   },
   {
-    path: 'tasks',
+    path: 'backlog',
+    children: [
+      {
+        path: '',
+        component: ToDoListComponent,
+      },
+      {
+        path: ':id',
+        component: ToDoListComponent,
+      },
+    ],
+  },
+  {
+    path: 'board',
     children: [
       {
         path: '',

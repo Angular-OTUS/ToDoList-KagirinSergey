@@ -22,7 +22,7 @@
       "id": 3,
       "text": "Съездить к родителям",
       "description": "В выходной съездить к родителям",
-      "status": "InProgress"
+      "status": "Completed"
     },
     {
       "id": 4,
@@ -35,12 +35,6 @@
       "text": "Поменять резину",
       "description": "Заменить летнюю резину на зимнюю",
       "status": "Completed"
-    },
-    {
-      "id": 6,
-      "text": "1234",
-      "description": "11111111",
-      "status": "InProgress"
     }
   ]
 }

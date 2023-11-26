@@ -1,19 +1,23 @@
+<app-header></app-header>
 <div class="todo__wrapper">
   <div>
-    <div class="todo__container">
+    <div class="todo__tasks">
       <div>
-        <app-select [filterData]="filterList" (changeStatus)="changeStatus($event)"></app-select>
+        <app-select
+          [filterData]="filterList"
+          (changeStatus)="changeStatus($event)"
+        ></app-select>
       </div>
       <div *ngIf="isLoading; then thenBlock else elseBlock"></div>
       <ng-template #thenBlock>
         <app-loader *ngIf="isLoading"></app-loader>
       </ng-template>
       <ng-template #elseBlock>
-        <ng-container *ngFor="let toDoItem of toDoItems; let indexOfelement = index;">
+        <ng-container *ngFor="let toDoItem of toDoItems; let index = index;">
           <app-to-do-list-item
             [item]="toDoItem"
             (actionTask)="actionItem($event)"
-            [class.selected]="indexOfelement === selectedItemId"
+            [class.selected]="index === selectedItemId"
           ></app-to-do-list-item>
         </ng-container>
       </ng-template>

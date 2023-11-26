@@ -1,9 +1,13 @@
 .todo__item {
-  max-width: 600px;
   display: flex;
+  width: 400px;
+  //height: 80px;
   justify-content: space-between;
-  padding: 12px 6px;
-  border-bottom: solid 1px grey;
+  align-items: center;
+  padding: 24px;
+  background-color: #535353;
+  border-radius: 4px;
+  margin-top: 12px;
 
   &_text {
     display: flex;

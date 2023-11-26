@@ -1,11 +1,16 @@
 <div class="todo__item">
-  <app-checkbox [status]="item.status" (click)="clickTask(item.id, 'change')"></app-checkbox>
+  <app-checkbox
+    [id]="item.id"
+    [text]="item.text"
+    [status]="item.status"
+    (click)="clickTask(item.id, 'change')"
+  ></app-checkbox>
   <div class="todo__item_text">
     <span *ngIf="!isActiveInput"
           (click)="singleClick(item.id, 'selected')"
           (dblclick)="doubleClick(item.id)"
     >
-      {{ item.text }}
+<!--      {{ item.text }}-->
     </span>
     <div class="todo__item_input" [ngClass]="isActiveInput ? 'button__add' : 'disabled'">
       <app-input #taskInput (keydown)="taskHandler(taskInput.value);"></app-input>

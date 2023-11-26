@@ -8,9 +8,13 @@
 .todo {
   &__wrapper {
     display: flex;
+    flex: 1;
+    padding: 12px;
+    margin-left: 240px;
+    margin-top: 80px;
   }
 
-  &__container {
+  &__tasks {
     width: 400px;
     max-width: 400px;
     margin-top: 24px;

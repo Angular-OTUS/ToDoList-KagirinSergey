@@ -1,6 +1,20 @@
-.content {
+.wrapper {
   position: relative;
-  padding: 16px;
+
+  .content {
+    display: flex;
+
+    .aside {
+      width: 240px;
+      height: 100vh;
+      position: fixed;
+    }
+
+    .main {
+      width: calc(100% - 240px);
+      flex: 1;
+    }
+  }
 
   .toast {
     position: absolute;
@@ -11,5 +25,3 @@
     height: 100vh;
   }
 }
-
-

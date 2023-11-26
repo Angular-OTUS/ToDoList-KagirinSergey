@@ -112,7 +112,7 @@ export class ToDoListComponent implements OnInit, OnDestroy {
       this.deleteTask(id, changeTask[0].text, changeTask[0].description);
     } else if (status === 'selected') {
       this.selectedItemId = id ? id : 0;
-      this.router.navigate(['/tasks/' + id]);
+      this.router.navigate(['/backlog/' + id]);
     } else if (status === 'update') {
       const text = array[2];
       if(text){

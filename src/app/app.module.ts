@@ -16,6 +16,8 @@ import { ToastComponent } from './shared/toast/toast.component';
 import { StoreService } from "./services/store/store.service";
 import { ToastService } from "./services/toast/toast.service";
 import { ToDoItemViewComponent } from './components/to-do-item-view/to-do-item-view.component';
+import { HeaderComponent } from './components/header/header.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { ToDoItemViewComponent } from './components/to-do-item-view/to-do-item-v
     ToDoCreateItemComponent,
     ToastComponent,
     ToDoItemViewComponent,
+    HeaderComponent,
+    MenuComponent,
   ],
   imports: [
     BrowserModule,
