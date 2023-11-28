@@ -20,7 +20,9 @@ export class ToDoListComponent implements OnInit {
   public selectedItemId!: number;
   public currentDescription: string | undefined = '';
 
-  constructor(private storeService: StoreService) { }
+  constructor(
+    private storeService: StoreService
+  ) { }
 
   ngOnInit() {
     setTimeout(
@@ -99,10 +101,22 @@ export class ToDoListComponent implements OnInit {
     return this.toDoItems;
   }
 
-
-
-  // public getDesc(id: number): void {
-  //   const itemDel = this.toDoItems.findIndex(el => el.id === id)
-  //   this.toDoItems.splice(itemDel, 1);
-  // }
+  public createTask(title: string, description?: string): void {
+    let max = 0;
+    if(this.toDoItems.length > 0) {
+      const lastTask = this.toDoItems.reduce(function(prev, current) {
+        return +current.id > +prev.id ? current : prev;
+      });
+      max = lastTask.id;
+    }
+    const newTask: IToDoItem = {
+      id: max + 1,
+      text: title,
+      description: description ? description : "",
+      status: "InProgress"
+    }
+    this.storeService.createTask(newTask).subscribe((data: IToDoItem) => {
+      this.getData();
+    });
+  }
 }
