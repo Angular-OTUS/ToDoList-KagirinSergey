@@ -10,7 +10,7 @@ export class ToDoListItemComponent {
   @Input() item!: IToDoItem;
   @Output() actionTask: EventEmitter<any> = new EventEmitter<any>();
 
-  public clickTask(id: number, isDel = false): void {
-    this.actionTask.emit([id, isDel]);
+  public clickTask(id: number, action: string): void {
+    this.actionTask.emit([id, action]);
   }
 }

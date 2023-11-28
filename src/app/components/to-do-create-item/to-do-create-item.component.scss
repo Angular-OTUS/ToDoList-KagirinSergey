@@ -1,0 +1,8 @@
+.todo {
+  &__new-task {
+    max-width: 400px;
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 6px;
+  }
+}
