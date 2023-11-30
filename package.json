@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "server": "ng json-server -w src/assets/tasks-data.json"
+    "server": "json-server -w src/assets/tasks-data.json"
   },
   "private": true,
   "dependencies": {
