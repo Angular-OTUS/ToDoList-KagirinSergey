@@ -40,3 +40,4 @@ export class TooltipDirective implements OnInit {
     this.overlayRef.detach();
   }
 }
+

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { IToDoItem } from "../../models/to-do-list.model";
-// import { TooltipDirective } from "../../directives/tooltip/tooltip.directive";
+import { Subscription } from "rxjs";
+import { IToast, IToDoItem, TypeAction } from "../../models/to-do-list.model";
+import { IFilterTask } from "../../models/filter.model";
+import { StoreService } from "../../services/store/store.service";
+import { ToastService } from "../../services/toast/toast.service";
+import filterData from "../../../assets/filter-data.json";
 
 @Component({
   selector: 'app-to-do-list',
@@ -9,71 +13,116 @@ import { IToDoItem } from "../../models/to-do-list.model";
 })
 
 export class ToDoListComponent implements OnInit {
-  public task = "";
-  public toDoItems: IToDoItem[] = [
-    {
-      id: 0,
-      text: "Сходить в магазин",
-      description: "Купить продукты, газировку и зубную пасту",
-    },
-    {
-      id: 1,
-      text: "Помыть окно",
-      description: "Помыть окно в спальне, на кухне и на балконе",
-    },
-    {
-      id: 2,
-      text: "Оплатить интернет",
-      description: "Оплатить интернет до 15 октября",
-    },
-  ];
-
+  public filterList: IFilterTask[] = filterData;
+  public toDoItem!: IToDoItem;
+  public toDoItems!: IToDoItem[];
+  public unFilteredTasks!: IToDoItem[];
   public isLoading = true;
-  public disabled = true;
   public selectedItemId!: number;
+  public currentDescription: string | undefined = '';
+  public value: string = "";
 
-  ngOnInit() {
+
+  constructor(
+    private storeService: StoreService,
+    private toastService: ToastService,
+  ) { }
+
+  public ngOnInit() {
     setTimeout(
       () => this.isLoading = false,
       500,
     );
+
+    this.getData();
   }
 
-  private getLastId() {
-    if(this.toDoItems.length > 0) {
-      const max = this.toDoItems.reduce(function(prev, current) {
-        return +current.id > +prev.id ? current : prev;
-      });
-      return max.id;
-    }
-    return 0;
-  }
-
-  public taskHandler(task: string): void {
-    this.disabled = task.length > 3 ?  false : true;
-  }
-
-  public actionItem(array: [number, boolean]): void {
-    const id = array[0];
-
-    if (array[1]) {
-      const itemDel = this.toDoItems.findIndex(el => el.id === id)
-      this.toDoItems.splice(itemDel, 1);
-    } else {
-      this.selectedItemId = id ? id : 0;
-    }
-  }
-
-  public saveTask(inputText: string, textareaText?: string): void {
-    this.toDoItems.push({
-      id: this.getLastId() + 1,
-      text: inputText,
-      description: textareaText ? textareaText : "",
+  public getData(): void {
+    this.storeService.getData().subscribe(data => {
+      this.toDoItems = data;
+      this.unFilteredTasks = this.toDoItems;
+    }, (error) => {
+      console.log(error);
     });
   }
 
-  public getDesc(id: number): void {
-    const itemDel = this.toDoItems.findIndex(el => el.id === id)
-    this.toDoItems.splice(itemDel, 1);
+  public getTask(id: number): Subscription {
+    return this.storeService.getTask(id).subscribe((data) => {
+      this.toDoItem = data;
+    }, (error) => {
+      console.log(error);
+    });
+  }
+
+  public updateTask(id: number, task: IToDoItem): void {
+    this.storeService.updateTask(id, task).subscribe((data) => {
+      const updateToast: IToast = {
+        text: task.text,
+        description: task.description,
+        type: "info"
+      }
+      this.toastService.viewToast(updateToast);
+      this.getData();
+    }, (error) => {
+      console.log(error);
+    });
+  }
+
+  public deleteTask(id: number, text: string, description: string): void {
+    this.storeService.deleteTask(id).subscribe((data) => {
+      const delToast: IToast = {
+        text: text,
+        description: description,
+        type: "delete"
+      }
+      this.toastService.viewToast(delToast);
+      this.getData();
+    }, (error) => {
+      console.log(error);
+    });
+  }
+
+  public actionItem(array: [id: number, typeAction: TypeAction, text?: string]): void {
+    const id = array[0];
+    const status = array[1];
+    if(status === 'delete') {
+      this.getTask(id);
+      const changeTask = this.toDoItems.filter(item => item.id === id);
+      this.deleteTask(id, changeTask[0].text, changeTask[0].description);
+    } else if (status === 'selected') {
+      this.selectedItemId = id ? id : 0;
+      this.currentDescription =
+        this.toDoItems[this.selectedItemId]?.description
+          ? this.toDoItems[this.selectedItemId]?.description
+          : "Выберите задачу";
+    } else if (status === 'update') {
+      const text = array[2];
+      if(text){
+        this.getTask(id);
+        const changeTask = this.toDoItems.filter(item => item.id === id);
+        changeTask[0].text = text;
+        this.updateTask(id, changeTask[0]);
+      }
+    } else if (status === 'change') {
+      this.getTask(id);
+      const changeTask = this.toDoItems.filter(item => item.id === id);
+      changeTask[0].status === 'InProgress'
+        ? changeTask[0].status = 'Completed'
+        : changeTask[0].status = 'InProgress';
+      this.updateTask(id, changeTask[0]);
+    }
+  }
+
+  public changeStatus(array: [string]) {
+    const status = array[0];
+
+    if(status !== "null") {
+      this.toDoItems = this.unFilteredTasks.filter(item =>
+        item.status === status
+      );
+    } else {
+      this.toDoItems = this.unFilteredTasks;
+    }
+    return this.toDoItems;
   }
 }

@@ -1,15 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ToDoListComponent } from './to-do-list.component';
 
-describe('ToDoListComponent', () => {
-  let component: ToDoListComponent;
-  let fixture: ComponentFixture<ToDoListComponent>;
+import { TextareaComponent } from './textarea.component';
+
+describe('TextareaComponent', () => {
+  let component: TextareaComponent;
+  let fixture: ComponentFixture<TextareaComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ToDoListComponent],
+      declarations: [TextareaComponent]
     });
-    fixture = TestBed.createComponent(ToDoListComponent);
+    fixture = TestBed.createComponent(TextareaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

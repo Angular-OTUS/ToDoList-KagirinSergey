@@ -1,1 +1,15 @@
+.content {
+  position: relative;
+  padding: 16px;
+
+  .toast {
+    position: absolute;
+    overflow: hidden;
+    right: 0;
+    top: 0;
+    width: 360px;
+    height: 100vh;
+  }
+}
+
 

@@ -1,7 +1,3 @@
-<!--<button class="button" ngClass="classButton" [disabled]="disabled" (click)="saveTask(task.value)">-->
-<!--  {{ title }}-->
-<!--</button>-->
-<!--[tooltip]="'Hello Jimmy'"-->
 <button
   class="button {{ classButton }}"
   [disabled]="disabled"
@@ -9,5 +5,5 @@
   matTooltip="{{ tooltip }}"
   matTooltipPosition="below"
 >
-  {{ title }}
+  <ng-content></ng-content>
 </button>
