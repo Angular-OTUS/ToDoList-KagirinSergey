@@ -16,6 +16,7 @@ import { ToastComponent } from './shared/toast/toast.component';
 import { StoreService } from "./services/store/store.service";
 import { ToastService } from "./services/toast/toast.service";
 import { ToDoItemViewComponent } from './components/to-do-item-view/to-do-item-view.component';
+import { GetTextPipe } from './pipes/get-text.pipe';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ToDoItemViewComponent } from './components/to-do-item-view/to-do-item-v
     ToDoCreateItemComponent,
     ToastComponent,
     ToDoItemViewComponent,
+    GetTextPipe,
   ],
   imports: [
     BrowserModule,

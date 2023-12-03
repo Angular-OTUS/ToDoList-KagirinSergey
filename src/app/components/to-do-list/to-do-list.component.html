@@ -21,7 +21,7 @@
     <app-to-do-create-item></app-to-do-create-item>
   </div>
   <app-to-do-item-view
-    [description]="currentDescription"
+    [description]="currentDescription | getText"
     [status]="currentStatus"
   ></app-to-do-item-view>
 </div>

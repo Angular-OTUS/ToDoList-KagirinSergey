@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
-import { IToast, IToDoItem, TypeAction } from "../../models/to-do-list.model";
+import { IActionTask, IToast, IToDoItem, TypeAction } from "../../models/to-do-list.model";
 import { IFilterTask } from "../../models/filter.model";
 import { TFilterStatus } from "../../models/filter-status.model";
 import { StoreService } from "../../services/store/store.service";
@@ -61,15 +61,9 @@ export class ToDoListComponent implements OnInit, OnDestroy {
 
   public getTask(id: number): Subscription {
     return this.storeService.getTask(id).subscribe((data) => {
-      const isEmpty = Object.keys(data).length === 0 && data.constructor === Object;
-      if(!isEmpty) {
-        this.toDoItem = data;
-        this.currentDescription =
-          this.toDoItem?.description
-            ? this.toDoItem?.description
-            : "Описание отсутствует";
-        this.currentStatus = this.toDoItem?.status;
-      }
+      this.toDoItem = data;
+      this.currentDescription = this.toDoItem?.description;
+      this.currentStatus = this.toDoItem?.status;
     }, (error) => {
       console.log(error);
     });
@@ -103,31 +97,31 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     });
   }
 
-  public actionItem(array: [id: number, typeAction: TypeAction, text?: string]): void {
-    const id = array[0];
-    const status = array[1];
-    if(status === 'delete') {
-      // this.getTask(id);
-      const changeTask = this.toDoItems.filter(item => item.id === id);
-      this.deleteTask(id, changeTask[0].text, changeTask[0].description);
-    } else if (status === 'selected') {
-      this.selectedItemId = id ? id : 0;
-      this.router.navigate(['/tasks/' + id]);
-    } else if (status === 'update') {
-      const text = array[2];
-      if(text){
-        // this.getTask(id);
-        const changeTask = this.toDoItems.filter(item => item.id === id);
-        changeTask[0].text = text;
+  public actionItem(actionTask: IActionTask): void {
+    const id = actionTask.id;
+    const status = actionTask.action;
+    const text = actionTask.text;
+    const changeTask = this.toDoItems.filter(item => item.id === id);
+    switch(status) {
+      case 'delete':
+        this.deleteTask(id, changeTask[0].text, changeTask[0].description);
+        break;
+      case 'selected':
+        this.selectedItemId = id;
+        this.router.navigate(['/tasks/', id]);
+        break;
+      case 'update':
+        if(text){
+          changeTask[0].text = text;
+          this.updateTask(id, changeTask[0]);
+        }
+        break;
+      case 'change':
+        changeTask[0].status === 'InProgress'
+          ? changeTask[0].status = 'Completed'
+          : changeTask[0].status = 'InProgress';
         this.updateTask(id, changeTask[0]);
-      }
-    } else if (status === 'change') {
-      // this.getTask(id);
-      const changeTask = this.toDoItems.filter(item => item.id === id);
-      changeTask[0].status === 'InProgress'
-        ? changeTask[0].status = 'Completed'
-        : changeTask[0].status = 'InProgress';
-      this.updateTask(id, changeTask[0]);
+        break;
     }
   }
 
