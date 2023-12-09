@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IToDoItem, TypeAction } from "../../models/to-do-list.model";
-import { StoreService } from "../../services/store/store.service";
+import { IToDoItem, TypeAction, IActionTask } from "../../models/to-do-list.model";
 
 @Component({
   selector: 'app-to-do-list-item',
@@ -9,7 +8,7 @@ import { StoreService } from "../../services/store/store.service";
 })
 export class ToDoListItemComponent implements OnInit {
   @Input() item!: IToDoItem;
-  @Output() actionTask: EventEmitter<any> = new EventEmitter<any>();
+  @Output() actionTask: EventEmitter<IActionTask> = new EventEmitter<IActionTask>();
 
   public disabled: boolean = true;
   private timer!: number;
@@ -30,20 +29,22 @@ export class ToDoListItemComponent implements OnInit {
 
     this.timer = setTimeout(() => {
       if(!this.preventSimpleClick) {
-        this.actionTask.emit([id, typeAction]);
+        const action: IActionTask = { id: id, action: typeAction, text: "" };
+        this.actionTask.emit(action);
         this.isActiveInput = false;
       }
     }, delay);
   }
 
-  public doubleClick(id: number): void{
+  public doubleClick(id: number): void {
     this.preventSimpleClick = true;
     clearTimeout(this.timer);
     this.isActiveInput = true;
   }
 
-  public clickTask(id: number, action: string): void {
-    this.actionTask.emit([id, action]);
+  public clickTask(id: number, action: TypeAction): void {
+    const actionTask: IActionTask = { id: id, action: action, text: "" };
+    this.actionTask.emit(actionTask);
   }
 
   public back(): void {
@@ -55,6 +56,7 @@ export class ToDoListItemComponent implements OnInit {
   }
 
   public action(id: number, typeAction: TypeAction, inputText: string) {
-    this.actionTask.emit([id, typeAction, inputText]);
+    const action: IActionTask = { id: id, action: typeAction, text: inputText };
+    this.actionTask.emit(action);
   }
 }

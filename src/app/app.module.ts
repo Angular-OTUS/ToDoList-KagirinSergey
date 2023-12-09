@@ -15,6 +15,8 @@ import { ToDoCreateItemComponent } from './components/to-do-create-item/to-do-cr
 import { ToastComponent } from './shared/toast/toast.component';
 import { StoreService } from "./services/store/store.service";
 import { ToastService } from "./services/toast/toast.service";
+import { ToDoItemViewComponent } from './components/to-do-item-view/to-do-item-view.component';
+import { GetTextPipe } from './pipes/get-text.pipe';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { ToastService } from "./services/toast/toast.service";
     ToDoListItemComponent,
     ToDoCreateItemComponent,
     ToastComponent,
+    ToDoItemViewComponent,
+    GetTextPipe,
   ],
   imports: [
     BrowserModule,
