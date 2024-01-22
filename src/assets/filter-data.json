@@ -1,17 +1,26 @@
 [
   {
+    "id": 0,
     "title": "Все",
     "status": "null",
     "selected": "selected"
   },
   {
+    "id": 1,
+    "title": "Новые",
+    "status": "ToDo",
+    "selected": ""
+  },
+  {
+    "id": 2,
     "title": "Выполняются",
     "status": "InProgress",
     "selected": ""
   },
   {
+    "id": 3,
     "title": "Выполненные",
-    "status": "Completed",
+    "status": "Done",
     "selected": ""
   }
 ]

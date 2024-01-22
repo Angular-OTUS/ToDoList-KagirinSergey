@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
+import {TitleService} from "./services/title/title.service";
+// import { ActivatedRoute, Data } from '@angular/router';
 // import { ToastService } from "./services/toast/toast.service";
 // import {IToDoItem} from "./models/to-do-list.model";
 
@@ -8,16 +11,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'ToDoList';
+  public title = 'ToDoList';
+  pageTitle = 'default page title';
   // public toDoItems: IToDoItem[] = [];
   // public text!: string;
   // public description!: string;
 
+
   constructor(
     // private toastService: ToastService
+    private route: ActivatedRoute,
   ) {   }
 
   public ngOnInit() {
+
+
     // this.toDoItems = this.toastService.getData();
     // console.log(this.toastService.getData(), 4)
     // if(this.toDoItems.length > 0) {

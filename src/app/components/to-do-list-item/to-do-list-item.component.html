@@ -1,30 +1,84 @@
-<div class="todo__item">
-  <app-checkbox [status]="item.status" (click)="clickTask(item.id, 'change')"></app-checkbox>
-  <div class="todo__item_text">
-    <span *ngIf="!isActiveInput"
-          (click)="singleClick(item.id, 'selected')"
-          (dblclick)="doubleClick(item.id)"
-    >
-      {{ item.text }}
-    </span>
-    <div class="todo__item_input" [ngClass]="isActiveInput ? 'button__add' : 'disabled'">
+<div class="todo__item" >
+  <div class="todo__item-text">
+    <div *ngIf="item.status === 'ToDo'; then thenBlock else elseBlock"></div>
+    <ng-template #thenBlock>
+      <div
+        *ngIf="!isActiveInput"
+        class="todo__item-new"
+        (click)="clickTask(item.id, 'change')"
+      >
+        <img
+          src="assets/img/icons/flag.svg"
+          width="24"
+          height="24"
+          alt="Новое"
+        />
+        <div>{{ item.text }}</div>
+      </div>
+    </ng-template>
+    <ng-template #elseBlock>
+      <app-checkbox
+        *ngIf="!isActiveInput"
+        [id]="item.id"
+        [text]="item.text"
+        [status]="item.status"
+        (changeStatus)="clickTask(item.id, 'change')"
+      ></app-checkbox>
+    </ng-template>
+    <div class="todo__item-input" [ngClass]="isActiveInput ? 'button__add' : 'disabled'">
       <app-input #taskInput (keydown)="taskHandler(taskInput.value);"></app-input>
     </div>
+  </div>
+  <div class="todo__item-buttons">
+    <div *ngIf="!isActiveInput">
+<!--      {{ item.text }}-->
+    </div>
     <app-button-component
-      classButton="button__delete"
+      class="todo__item-button"
+      [tooltip]="'Показать'"
+      [classButton]="'button_icon'"
+      (click)="edit(item.id, 'selected')"
+    >
+      <img
+        class="todo__item-icon"
+        src="assets/img/icons/task_view.svg"
+        width="24" height="24" />
+    </app-button-component>
+    <app-button-component
+      class="todo__item-button"
+      classButton="button__delete button_icon"
       *ngIf="isActiveInput"
       [tooltip]="'Назад'"
       (click)="back();"
     >
-      Назад
+      <img
+        class="todo__item-icon"
+        src="assets/img/icons/back.svg"
+        width="24" height="24" />
     </app-button-component>
     <app-button-component
+      *ngIf="!isActiveInput"
+      class="todo__item-button"
+      [tooltip]="'Показать'"
+      [classButton]="'button_icon'"
+      (click)="editTask(item.id);"
+    >
+      <img
+        class="todo__item-icon"
+        src="assets/img/icons/edit.svg"
+        width="24" height="24" />
+    </app-button-component>
+    <app-button-component
+      class="todo__item-button"
       [tooltip]="isActiveInput ? 'Сохранить' : 'Удалить'"
-      [classButton]="isActiveInput ? 'button__add' : 'button__delete'"
+      [classButton]="isActiveInput ? 'button__add button_icon' : 'button__delete button_icon'"
       [disabled]="isActiveInput && disabled"
       (click)="action(item.id, isActiveInput ? 'update' : 'delete', taskInput.value);"
     >
-      {{ isActiveInput ? 'Сохранить' : 'Удалить'  }}
+      <img
+        class="todo__item-icon"
+        src="assets/img/icons/{{ isActiveInput ? 'task_save.svg' : 'task_delete.svg'  }}"
+        width="24" height="24" />
     </app-button-component>
   </div>
 </div>

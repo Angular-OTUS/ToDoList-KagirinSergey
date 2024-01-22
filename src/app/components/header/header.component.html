@@ -1,0 +1,27 @@
+<div class="header">
+  <div class="header__logo">
+    TasksBoard
+  </div>
+  <div class="header__main">
+    <div class="header__title">
+      <div class="header__path">
+        {{ title }}
+      </div>
+      <div *ngIf="title === 'Backlog'">
+        <app-select [filterData]="filterList"></app-select>
+      </div>
+    </div>
+    <div>
+      <a
+        routerLink="create"
+        tooltip="Создать задачу"
+        class="header__link"
+      >
+        <img
+          class="header__icon"
+          src="assets/img/icons/plus.svg"
+          width="24" height="24" />
+      </a>
+    </div>
+  </div>
+</div>
