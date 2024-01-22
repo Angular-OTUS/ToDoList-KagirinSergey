@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TFilterStatus } from "../../models/filter-status.model";
 
 @Component({
@@ -10,12 +10,13 @@ export class CheckboxComponent {
   @Input() id!: number;
   @Input() text: string = "";
   @Input() status!: TFilterStatus;
-  public changeStatus: EventEmitter<any> = new EventEmitter<any>();
+  @Output() changeStatus: EventEmitter<any> = new EventEmitter<any>();
+
   public isChecked!: "checked" | undefined;
 
   constructor() {
     setTimeout(()=> {
-      if(this.status === 'Completed') {
+      if(this.status === 'Done') {
         this.isChecked = "checked";
       }
     }, 100);

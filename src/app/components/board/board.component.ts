@@ -1,45 +1,32 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
-import { Location } from '@angular/common';
-import { Subscription } from "rxjs";
-import { IToast, IToDoItem, TypeAction } from "../../models/to-do-list.model";
-import { IFilterTask } from "../../models/filter.model";
+import { Component, OnInit } from '@angular/core';
+import {IToast, IToDoItem, TypeAction} from "../../models/to-do-list.model";
 import { TFilterStatus } from "../../models/filter-status.model";
+import { ActivatedRoute, Router } from "@angular/router";
 import { StoreService } from "../../services/store/store.service";
-import { ToastService } from "../../services/toast/toast.service";
-import { FilteredTasksService } from "../../services/filteredTasks/filtered-tasks.service";
 import { TitleService } from "../../services/title/title.service";
-import filterData from "../../../assets/filter-data.json";
+import {ToastService} from "../../services/toast/toast.service";
 
 @Component({
-  selector: 'app-to-do-list',
-  templateUrl: './to-do-list.component.html',
-  styleUrls: ['./to-do-list.component.scss'],
+  selector: 'app-board',
+  templateUrl: './board.component.html',
+  styleUrls: ['./board.component.scss']
 })
-
-export class ToDoListComponent implements OnInit, OnDestroy {
-  public filterList: IFilterTask[] = filterData;
-  public toDoItem!: IToDoItem;
+export class BoardComponent implements OnInit {
   public toDoItems!: IToDoItem[];
-  public unFilteredTasks!: IToDoItem[];
-  public isLoading = true;
+  public filteredTasks!: IToDoItem[];
   public selectedItemId!: number;
-  public currentDescription: string | undefined = 'Задача не выбрана';
-  public currentStatus: TFilterStatus | undefined;
+  public isLoading = true;
   public value: string = "";
   public id!: number;
-  private paramsSub!: Subscription;
+  public status: TFilterStatus[] = ['ToDo', 'InProgress', 'Done'];
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private storeService: StoreService,
-    private toastService: ToastService,
-    private filteredTasksService: FilteredTasksService,
     private titleService: TitleService,
-    private location: Location
-  ) {
-  }
+    private toastService: ToastService,
+  ) { }
 
   public ngOnInit() {
     setTimeout(
@@ -48,23 +35,7 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     );
 
     this.getData();
-
-    this.paramsSub = this.route.params.subscribe(params => {
-      if(params['id'] !== undefined) {
-        this.id = parseInt(params['id'], 10);
-        this.selectedItemId = this.id;
-        this.getTask(this.id);
-      }
-    });
-
-    this.filteredTasksService.currentTypeTasks$.subscribe(value => {
-      // console.log(value, "88");
-      this.changeStatus(value);
-    });
-
-    // console.log(this.route.snapshot.data);
     this.getTitle();
-
   }
 
   public getTitle(): void {
@@ -75,23 +46,6 @@ export class ToDoListComponent implements OnInit, OnDestroy {
   public getData(): void {
     this.storeService.getData().subscribe(data => {
       this.toDoItems = data;
-      this.unFilteredTasks = this.toDoItems;
-    }, (error) => {
-      console.log(error);
-    });
-  }
-
-  public getTask(id: number): Subscription {
-    return this.storeService.getTask(id).subscribe((data) => {
-      const isEmpty = Object.keys(data).length === 0 && data.constructor === Object;
-      if(!isEmpty) {
-        this.toDoItem = data;
-        this.currentDescription =
-          this.toDoItem?.description
-            ? this.toDoItem?.description
-            : "Описание отсутствует";
-        this.currentStatus = this.toDoItem?.status;
-      }
     }, (error) => {
       console.log(error);
     });
@@ -165,22 +119,9 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     }
   }
 
-  public changeStatus(status: "null" | TFilterStatus) {
-    // const status = array[0];
-    this.location.go("backlog");
-    this.selectedItemId = -1;
-    this.currentDescription = 'Задача не выбрана';
-    if(status !== "null") {
-      this.toDoItems = this.unFilteredTasks.filter(item =>
-        item.status === status
-      );
-    } else {
-      this.toDoItems = this.unFilteredTasks;
-    }
-    return this.toDoItems;
+  public getColumnTasks(column: TFilterStatus): number {
+    this.filteredTasks = this.toDoItems.filter(item => item.status === column);
+    return this.filteredTasks.length;
   }
 
-  public ngOnDestroy() {
-    this.paramsSub.unsubscribe();
-  }
 }

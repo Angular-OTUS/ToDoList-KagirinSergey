@@ -1,0 +1,25 @@
+<div class="board">
+  <div *ngFor="let column of status" class="board__column">
+    <h2 class="board__column-title">{{ column }}</h2>
+    <div *ngIf="isLoading; then thenBlock else elseBlock"></div>
+    <ng-template #thenBlock>
+      <app-loader *ngIf="isLoading"></app-loader>
+    </ng-template>
+    <ng-template #elseBlock>
+      <div *ngIf="getColumnTasks(column) > 0; then thenBlock2 else elseBlock2"></div>
+      <ng-template #thenBlock2>
+        <ng-container *ngFor="let toDoItem of toDoItems;">
+          <ng-container *ngIf="toDoItem.status === column;">
+            <app-to-do-list-item
+              [item]="toDoItem"
+              (actionTask)="actionItem($event)"
+            ></app-to-do-list-item>
+          </ng-container>
+        </ng-container>
+      </ng-template>
+      <ng-template #elseBlock2>
+        <div class="board__empty">В этой колонке нет задач</div>
+      </ng-template>
+    </ng-template>
+  </div>
+</div>

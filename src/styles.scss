@@ -1,7 +1,13 @@
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
+@import "normalize";
+
 /* You can add global styles to this file, and also import other style files */
+
+* {
+  box-sizing: border-box;
+}
 
 body {
   font-family: 'Open Sans', Arial, sans-serif;
@@ -13,3 +19,6 @@ body {
 h1 {
   margin: 0;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

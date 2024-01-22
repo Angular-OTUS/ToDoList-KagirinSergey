@@ -5,13 +5,18 @@
     display: flex;
 
     .aside {
+      margin-top: 80px;
       width: 240px;
       height: 100vh;
       position: fixed;
     }
 
     .main {
+      padding: 24px;
+      margin-left: 240px;
+      margin-top: 80px;
       width: calc(100% - 240px);
+      height: calc(100vh - 80px);
       flex: 1;
     }
   }
@@ -22,6 +27,6 @@
     right: 0;
     top: 0;
     width: 360px;
-    height: 100vh;
+    height: 160px;
   }
 }

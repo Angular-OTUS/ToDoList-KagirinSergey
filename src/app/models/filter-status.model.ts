@@ -1,1 +1,1 @@
-export type TFilterStatus = 'InProgress' | 'Completed'
+export type TFilterStatus = 'ToDo' | 'InProgress' | 'Done';

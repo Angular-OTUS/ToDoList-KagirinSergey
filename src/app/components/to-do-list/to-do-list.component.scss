@@ -2,26 +2,45 @@
   .selected {
     display: block;
     background-color: grey;
+    border-radius: 4px;
   }
 }
 
 .todo {
   &__wrapper {
     display: flex;
-    flex: 1;
-    padding: 12px;
-    margin-left: 240px;
-    margin-top: 80px;
+    height: 100%;
   }
 
   &__tasks {
-    width: 400px;
-    max-width: 400px;
-    margin-top: 24px;
+    width: 500px;
+    max-width: 500px;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      background-color: transparent;
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #dddddd;
+      border-radius: 8px;
+    }
   }
 
   &__form {
     display: flex;
     flex-direction: column;
   }
+
+  &__empty {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #ddd;
+  }
 }
+
+
+

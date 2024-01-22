@@ -4,25 +4,25 @@
       "id": 0,
       "text": "Сходить в магазин",
       "description": "Купить продукты, газировку и зубную пасту",
-      "status": "InProgress"
+      "status": "Done"
     },
     {
       "id": 1,
       "text": "Помыть окно",
       "description": "Помыть окно в спальне, на кухне и на балконе",
-      "status": "Completed"
+      "status": "InProgress"
     },
     {
       "id": 2,
       "text": "Оплатить интернет",
       "description": "Оплатить интернет до 15 октября",
-      "status": "Completed"
+      "status": "InProgress"
     },
     {
       "id": 3,
       "text": "Съездить к родителям",
       "description": "В выходной съездить к родителям",
-      "status": "Completed"
+      "status": "Done"
     },
     {
       "id": 4,
@@ -34,7 +34,31 @@
       "id": 5,
       "text": "Поменять резину",
       "description": "Заменить летнюю резину на зимнюю",
-      "status": "Completed"
+      "status": "Done"
+    },
+    {
+      "id": 6,
+      "text": "Забрать посылку",
+      "description": "Забрать посылку с почты",
+      "status": "InProgress"
+    },
+    {
+      "id": 7,
+      "text": "3333",
+      "description": "ffsfsd sdfsdfs",
+      "status": "Done"
+    },
+    {
+      "id": 8,
+      "text": "123456",
+      "description": "qweadzz zczc",
+      "status": "Done"
+    },
+    {
+      "id": 9,
+      "text": "8989898",
+      "description": "tyutyuty",
+      "status": "ToDo"
     }
   ]
 }

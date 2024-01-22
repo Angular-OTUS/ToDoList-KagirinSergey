@@ -1,28 +1,30 @@
-<app-header></app-header>
 <div class="todo__wrapper">
   <div>
     <div class="todo__tasks">
-      <div>
-        <app-select
-          [filterData]="filterList"
-          (changeStatus)="changeStatus($event)"
-        ></app-select>
-      </div>
       <div *ngIf="isLoading; then thenBlock else elseBlock"></div>
       <ng-template #thenBlock>
         <app-loader *ngIf="isLoading"></app-loader>
       </ng-template>
       <ng-template #elseBlock>
-        <ng-container *ngFor="let toDoItem of toDoItems; let index = index;">
-          <app-to-do-list-item
-            [item]="toDoItem"
-            (actionTask)="actionItem($event)"
-            [class.selected]="index === selectedItemId"
-          ></app-to-do-list-item>
-        </ng-container>
+        <div *ngIf="toDoItems.length > 0; then thenBlock2 else elseBlock2"></div>
+        <ng-template #thenBlock2>
+          <ng-container *ngFor="let toDoItem of toDoItems; let index = index; let first = first;">
+            <app-to-do-list-item
+              [item]="toDoItem"
+              (actionTask)="actionItem($event)"
+              [class.selected]="index === selectedItemId"
+              [class.first]="first"
+            ></app-to-do-list-item>
+          </ng-container>
+        </ng-template>
+        <ng-template #elseBlock2>
+          <div class="todo__empty">
+            Задачи отсутствуют
+          </div>
+        </ng-template>
       </ng-template>
     </div>
-    <app-to-do-create-item></app-to-do-create-item>
+<!--    <app-to-do-create-item></app-to-do-create-item>-->
   </div>
   <app-to-do-item-view
     [description]="currentDescription"

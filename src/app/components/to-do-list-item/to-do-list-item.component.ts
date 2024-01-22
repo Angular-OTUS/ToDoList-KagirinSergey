@@ -11,37 +11,26 @@ export class ToDoListItemComponent implements OnInit {
   @Output() actionTask: EventEmitter<any> = new EventEmitter<any>();
 
   public disabled: boolean = true;
-  private timer!: number;
-  private preventSimpleClick!: boolean;
   public isActiveInput = false;
   public value: string = "";
 
-  constructor() {   }
+  constructor() { }
 
   public ngOnInit() {
     this.taskHandler("");
+    // console.log(this.item)
   }
 
-  public singleClick(id: number, typeAction: TypeAction): void {
-    this.timer = 0;
-    this.preventSimpleClick = false;
-    let delay = 200;
-
-    this.timer = setTimeout(() => {
-      if(!this.preventSimpleClick) {
-        this.actionTask.emit([id, typeAction]);
-        this.isActiveInput = false;
-      }
-    }, delay);
+  public edit(id: number, typeAction: TypeAction): void {
+    this.actionTask.emit([id, typeAction]);
   }
 
-  public doubleClick(id: number): void{
-    this.preventSimpleClick = true;
-    clearTimeout(this.timer);
+  public editTask(id: number): void {
     this.isActiveInput = true;
   }
 
   public clickTask(id: number, action: string): void {
+    // console.log("2")
     this.actionTask.emit([id, action]);
   }
 
