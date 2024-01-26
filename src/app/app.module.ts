@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
 
 import { SharedModule } from "./shared/shared.module";
@@ -15,6 +15,11 @@ import { ToDoCreateItemComponent } from './components/to-do-create-item/to-do-cr
 import { ToastComponent } from './shared/toast/toast.component';
 import { StoreService } from "./services/store/store.service";
 import { ToastService } from "./services/toast/toast.service";
+import { ToDoItemViewComponent } from './components/to-do-item-view/to-do-item-view.component';
+import { HeaderComponent } from './components/header/header.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { BoardComponent } from './components/board/board.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -23,15 +28,21 @@ import { ToastService } from "./services/toast/toast.service";
     ToDoListItemComponent,
     ToDoCreateItemComponent,
     ToastComponent,
+    ToDoItemViewComponent,
+    HeaderComponent,
+    MenuComponent,
+    BoardComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     MaterialModule,
     SharedModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     StoreService,

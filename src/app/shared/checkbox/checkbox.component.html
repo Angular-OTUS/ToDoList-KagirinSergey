@@ -1,1 +1,4 @@
-<input type="checkbox" class="checkbox" [checked]="isChecked" (click)="clickCheckbox();"  />
+<div class="checkbox">
+  <input type="checkbox" [id]="id" [checked]="isChecked" (click)="clickCheckbox();" />
+  <label [for]="id" i18n>{{ text }}</label>
+</div>

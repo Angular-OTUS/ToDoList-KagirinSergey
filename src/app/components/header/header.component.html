@@ -1,0 +1,35 @@
+<div class="header">
+  <div class="header__logo">
+    TasksBoard
+  </div>
+  <div class="header__main">
+    <div class="header__title">
+      <div class="header__path" i18n>
+        {{ title }}
+      </div>
+      <div *ngIf="title === 'Backlog'">
+        <app-select [filterData]="filterList"></app-select>
+      </div>
+    </div>
+    <div class="header__buttons">
+      <ul class="header__locale">
+        <li *ngFor="let locale of localesList">
+          <a href="/{{ locale.code }}">
+            {{ locale.label }}
+          </a>
+        </li>
+      </ul>
+      <a
+        routerLink="create"
+        tooltip="Create a task"
+        class="header__link"
+        i18n-tooltip
+      >
+        <img
+          class="header__icon"
+          src="assets/img/icons/plus.svg"
+          width="24" height="24" />
+      </a>
+    </div>
+  </div>
+</div>

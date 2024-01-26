@@ -15,5 +15,6 @@ export class ButtonComponent {
   public clickButton(): void {
     this.actionButton.emit();
   }
+
 }
 

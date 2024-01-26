@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+
 import { ButtonComponent } from './button/button.component';
 import { TooltipComponent } from './tooltip/tooltip.component';
 import { TooltipDirective } from './tooltip/tooltip.directive';
-
 import { MaterialModule } from './../material/material.module';
 import { InputComponent } from './input/input.component';
 import { LoaderComponent } from './loader/loader.component';
@@ -26,6 +27,8 @@ import { TextareaComponent } from './textarea/textarea.component';
   imports: [
     CommonModule,
     MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
     exports: [
         ButtonComponent,

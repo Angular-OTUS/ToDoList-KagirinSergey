@@ -4,15 +4,18 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start-ru-locale": "ng serve --configuration development-ru",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "server": "json-server -w src/assets/tasks-data.json"
   },
   "private": true,
   "dependencies": {
     "@angular-eslint/eslint-plugin": "^16.2.0",
     "@angular/animations": "^16.2.0",
+    "@angular/cdk": "^16.2.5",
     "@angular/common": "^16.2.0",
     "@angular/compiler": "^16.2.0",
     "@angular/core": "^16.2.0",
@@ -34,6 +37,7 @@
     "@angular-eslint/template-parser": "16.2.0",
     "@angular/cli": "~16.2.0",
     "@angular/compiler-cli": "^16.2.0",
+    "@angular/localize": "^16.2.1",
     "@types/jasmine": "~4.3.0",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",

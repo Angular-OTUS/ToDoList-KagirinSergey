@@ -1,0 +1,39 @@
+.button {
+  font-size: 14px;
+  line-height: 38px;
+  background-color: transparent;
+  color: #ddd;
+  cursor: pointer;
+  border: 1px solid #6cc0e5;
+  transition: all 0.12s, border-color 0.08s;
+  opacity: 0.6;
+
+  &:not(.button_icon) {
+    padding: 0px 24px;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &__add {
+    border: 1px solid #6ce575;
+  }
+
+  &__delete {
+    border: 1px solid #e56c6c;
+  }
+
+  &[disabled] {
+    opacity: 0.3;
+  }
+
+  &_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+  }
+
+}

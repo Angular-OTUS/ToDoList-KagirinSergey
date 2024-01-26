@@ -1,16 +1,23 @@
 <div class="todo__new-task">
-  <div class="todo__form">
-    <app-input #taskInput (keydown)="taskHandler(taskInput.value);"></app-input>
-    <div class="todo__form_textarea">
-      <app-textarea #taskTextarea></app-textarea>
+  <div *ngIf="!isSend" class="todo__form">
+    <div class="todo__form-data">
+      <app-input #taskInput (keydown)="taskHandler(taskInput.value);"></app-input>
+      <div class="todo__form_textarea">
+        <app-textarea #taskTextarea></app-textarea>
+      </div>
     </div>
+    <app-button-component
+      classButton="button__add"
+      tooltip="Create a task"
+      [disabled]="disabled"
+      (click)="saveTask(taskInput.value, taskTextarea.value);"
+      i18n
+    >
+      Add task
+    </app-button-component>
   </div>
-  <app-button-component
-    classButton="button__add"
-    tooltip="Добавить"
-    [disabled]="disabled"
-    (click)="saveTask(taskInput.value, taskTextarea.value);"
-  >
-    Добавить
-  </app-button-component>
+  <div *ngIf="isSend" class="todo__send">
+    <p i18n>Task created</p>
+  </div>
 </div>
+
