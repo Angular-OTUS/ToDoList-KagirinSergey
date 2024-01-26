@@ -35,7 +35,7 @@
     </div>
     <app-button-component
       class="todo__item-button"
-      [tooltip]="'Показать'"
+      [tooltip]="'Show'"
       [classButton]="'button_icon'"
       (click)="edit(item.id, 'selected')"
     >
@@ -48,7 +48,7 @@
       class="todo__item-button"
       classButton="button__delete button_icon"
       *ngIf="isActiveInput"
-      [tooltip]="'Назад'"
+      [tooltip]="'Back'"
       (click)="back();"
     >
       <img
@@ -59,7 +59,7 @@
     <app-button-component
       *ngIf="!isActiveInput"
       class="todo__item-button"
-      [tooltip]="'Показать'"
+      [tooltip]="'Edit'"
       [classButton]="'button_icon'"
       (click)="editTask(item.id);"
     >
@@ -70,7 +70,7 @@
     </app-button-component>
     <app-button-component
       class="todo__item-button"
-      [tooltip]="isActiveInput ? 'Сохранить' : 'Удалить'"
+      [tooltip]="isActiveInput ? 'Save' : 'Delete'"
       [classButton]="isActiveInput ? 'button__add button_icon' : 'button__delete button_icon'"
       [disabled]="isActiveInput && disabled"
       (click)="action(item.id, isActiveInput ? 'update' : 'delete', taskInput.value);"

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IMenu } from "../../models/menu.model";
-import config from "../../../assets/config.json"
 
 @Component({
   selector: 'app-menu',
@@ -8,6 +7,14 @@ import config from "../../../assets/config.json"
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
-  public menu: IMenu[] = config;
-
+  public menu: IMenu[] = [
+    {
+      name: $localize `Backlog`,
+      link: "backlog",
+    },
+    {
+      name: $localize `Board`,
+      link: "board"
+    }
+  ];
 }

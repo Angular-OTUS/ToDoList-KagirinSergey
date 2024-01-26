@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IFilterTask } from "../../models/filter.model";
 import { FilteredTasksService } from "../../services/filteredTasks/filtered-tasks.service";
 import { TFilterStatus } from "../../models/filter-status.model";
@@ -10,7 +10,6 @@ import { TFilterStatus } from "../../models/filter-status.model";
 })
 export class SelectComponent implements OnInit {
   @Input() filterData!: IFilterTask[];
-  // @Output() changeStatus: EventEmitter<any> = new EventEmitter<any>();
   public selected!: "null" | TFilterStatus;
 
   constructor(

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {IToast, IToDoItem, TypeAction} from "../../models/to-do-list.model";
-import { TFilterStatus } from "../../models/filter-status.model";
+import { IToast, IToDoItem, TypeAction } from "../../models/to-do-list.model";
 import { ActivatedRoute, Router } from "@angular/router";
 import { StoreService } from "../../services/store/store.service";
 import { TitleService } from "../../services/title/title.service";
-import {ToastService} from "../../services/toast/toast.service";
+import { ToastService } from "../../services/toast/toast.service";
+import { IFilterStatus, TFilterStatus } from "../../models/filter-status.model";
 
 @Component({
   selector: 'app-board',
@@ -18,7 +18,20 @@ export class BoardComponent implements OnInit {
   public isLoading = true;
   public value: string = "";
   public id!: number;
-  public status: TFilterStatus[] = ['ToDo', 'InProgress', 'Done'];
+  public status: IFilterStatus[] = [
+    {
+      title: $localize `ToDo`,
+      column: 'ToDo'
+    },
+    {
+      title: $localize `InProgress`,
+      column: 'InProgress'
+    },
+    {
+      title: $localize `Done`,
+      column: 'Done'
+    }
+  ];
 
   constructor(
     private router: Router,

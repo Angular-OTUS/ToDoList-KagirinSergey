@@ -4,5 +4,5 @@ export interface IFilterTask {
   id: number;
   title: string;
   status: 'null' | TFilterStatus;
-  selected: boolean;
+  selected?: boolean;
 }

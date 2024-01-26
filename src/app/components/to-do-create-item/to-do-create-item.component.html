@@ -8,15 +8,16 @@
     </div>
     <app-button-component
       classButton="button__add"
-      tooltip="Добавить"
+      tooltip="Create a task"
       [disabled]="disabled"
       (click)="saveTask(taskInput.value, taskTextarea.value);"
+      i18n
     >
-      Добавить
+      Add task
     </app-button-component>
   </div>
   <div *ngIf="isSend" class="todo__send">
-    <p>Задача создана</p>
+    <p i18n>Task created</p>
   </div>
 </div>
 

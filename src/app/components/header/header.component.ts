@@ -1,9 +1,8 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { IFilterTask } from "../../models/filter.model";
-import filterData from "../../../assets/filter-data.json";
-import {TitleService} from "../../services/title/title.service";
+import { TitleService } from "../../services/title/title.service";
 
 @Component({
   selector: 'app-header',
@@ -13,8 +12,35 @@ import {TitleService} from "../../services/title/title.service";
 export class HeaderComponent implements OnInit, OnDestroy {
   public path!: string;
   private paramsSub!: Subscription;
-  public filterList: IFilterTask[] = filterData;
   public title!: string;
+  public filterList: IFilterTask[] = [
+    {
+      id: 0,
+      title: $localize `All`,
+      status: "null",
+      selected: true
+    },
+    {
+      id: 1,
+      title: $localize `New`,
+      status: "ToDo"
+    },
+    {
+      id: 2,
+      title: $localize `Progress`,
+      status: "InProgress"
+    },
+    {
+      id: 3,
+      title: $localize `Complete`,
+      status: "Done"
+    }
+  ];
+
+  localesList = [
+    { code: 'en', label: 'English' },
+    { code: 'ru', label: 'Русский' }
+  ];
 
   constructor(
     private router: Router,

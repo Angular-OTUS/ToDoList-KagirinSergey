@@ -9,7 +9,6 @@ import { StoreService } from "../../services/store/store.service";
 import { ToastService } from "../../services/toast/toast.service";
 import { FilteredTasksService } from "../../services/filteredTasks/filtered-tasks.service";
 import { TitleService } from "../../services/title/title.service";
-import filterData from "../../../assets/filter-data.json";
 
 @Component({
   selector: 'app-to-do-list',
@@ -18,13 +17,12 @@ import filterData from "../../../assets/filter-data.json";
 })
 
 export class ToDoListComponent implements OnInit, OnDestroy {
-  public filterList: IFilterTask[] = filterData;
   public toDoItem!: IToDoItem;
   public toDoItems!: IToDoItem[];
   public unFilteredTasks!: IToDoItem[];
   public isLoading = true;
   public selectedItemId!: number;
-  public currentDescription: string | undefined = 'Задача не выбрана';
+  public currentDescription: string | undefined = 'Task not selected';
   public currentStatus: TFilterStatus | undefined;
   public value: string = "";
   public id!: number;
@@ -169,7 +167,7 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     // const status = array[0];
     this.location.go("backlog");
     this.selectedItemId = -1;
-    this.currentDescription = 'Задача не выбрана';
+    this.currentDescription = 'Task not selected';
     if(status !== "null") {
       this.toDoItems = this.unFilteredTasks.filter(item =>
         item.status === status

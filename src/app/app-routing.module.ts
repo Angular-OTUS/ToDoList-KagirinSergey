@@ -18,7 +18,6 @@ const routes: Routes = [
     children: [
       {
         path: '',
-
         component: ToDoListComponent,
       },
       {
