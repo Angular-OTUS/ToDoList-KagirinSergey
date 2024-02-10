@@ -1,0 +1,23 @@
+:host {
+  .selected {
+    display: block;
+    background-color: grey;
+  }
+}
+
+.todo {
+  &__wrapper {
+    display: flex;
+  }
+
+  &__container {
+    width: 400px;
+    max-width: 400px;
+    margin-top: 24px;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+}

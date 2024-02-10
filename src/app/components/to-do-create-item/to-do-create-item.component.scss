@@ -1,0 +1,16 @@
+.todo {
+  &__new-task {
+    max-width: 400px;
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0px;
+  }
+
+  &__form {
+    width: 300px;
+
+    &_textarea {
+      margin-top: 12px;
+    }
+  }
+}
